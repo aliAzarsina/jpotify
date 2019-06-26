@@ -10,12 +10,17 @@ public  class MouseListenerSelf implements MouseListener {
     JButton jButton;
     ArrayList<MusicPanel> musicPanels = new ArrayList<>();
 
-    public MouseListenerSelf(ArrayList<Music> musics) {
+    public MouseListenerSelf(ArrayList<Music> musics,ArrayList<String> arrayList) {
         this.musics = musics;
-        for (int i = 0; i < musics.size(); i++) {
-            System.out.println("alasjlkjdsls");
-            musicPanels.add(new MusicPanel(new JLabel(musics.get(i).musicName), new JLabel("mamali"),musics.get(i).button,musics.get(i)));
-            System.out.println(musics.get(i).musicName+"qqqqqqqqqqqqqqqqqqqqqqqq");
+        for (String str:arrayList) {
+            for (int i = 0; i < musics.size(); i++) {
+                System.out.println(str + "hhh");
+                System.out.println();
+                System.out.println(musics.get(i));
+                if (str.equals(musics.get(i).musicName)) {
+                    musicPanels.add(musics.get(i).musicPanel);
+                }
+            }
         }
 //        jPanel.setBackground(Color.red);
     }

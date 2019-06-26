@@ -53,4 +53,6 @@ public class MusicPanel extends JPanel {
                                 .addComponent(musicTagLable, GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
         );
     }
+
+
 }

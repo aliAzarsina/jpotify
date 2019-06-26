@@ -12,6 +12,7 @@ public class Music {
     String reallyMusicName;
     NextMusicActionListener nextMusicActionListener;
     PreviousButtonActionListener previousButtonActionListener;
+    MusicPanel musicPanel;
 
     public Music (JButton button,FileInputStream fileInputStream,Mantegh mantegh,Album album,String musicName,NextMusicActionListener nextMusicActionListener,PreviousButtonActionListener previousButtonActionListener)
     {
@@ -23,7 +24,11 @@ public class Music {
         this.fileInputStream=fileInputStream;
         this.musics=album.musics;
         this.button=button;
-        setTheActionListener();
+//        setTheActionListener();
+    }
+
+    public void setMusicPanel(MusicPanel musicPanel) {
+        this.musicPanel = musicPanel;
     }
 
     public void setTheActionListener()
