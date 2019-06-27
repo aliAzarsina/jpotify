@@ -18,6 +18,7 @@ public class OnlinePeoplePanel extends JPanel{
         lastMusicArtist = new JLabel(lastMusicArtistt);
         lastSeen = new JLabel(lastSeenn);
         downloadMusic = new JButton();
+        downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener());
         getSharelist = new JButton();
         
         

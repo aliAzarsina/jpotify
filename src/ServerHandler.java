@@ -16,6 +16,9 @@ public class ServerHandler implements Runnable {
         dos = new DataOutputStream(socket.getOutputStream());
     }
 
+    public void setWork(String work) {
+        this.work = work;
+    }
 
     static ArrayList<String> sharedlist=new ArrayList<>();
 

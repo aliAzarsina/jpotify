@@ -1,34 +1,63 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ClientSide {
+public class ClientSide implements Runnable{
     static ArrayList<String> ipList = new ArrayList<>();
     static String currentMusicName=new String();
     static ArrayList<String> sharedList=new ArrayList<>();
-    static String musicName=new String();
+    static String musicName = "";
+    static String work = "";
+    Mantegh mantegh;
+    Jpotify jpotify;
 
-    public static void main(String[] args) throws IOException {
-        Scanner scn=new Scanner(System.in);
-        String work=scn.nextLine();
+//    public ClientSide () {
+//        this.mantegh = mantegh;
+//        this.jpotify = jpotify;
+//    }
+
+    @Override
+    public void run(){
+        File file = new File(".\\bin\\ipList.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                ipList.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        Scanner scn=new Scanner(System.in);
+//        String work=scn.nextLine();
 
 //        ipList.add("localhost");
 //        ipList.add("192.168.1.41");
-        ipList.add("localhost");
-
-        if(work.equals("sendCurrentMusic"))
-        {
-            sendingNewMusic();
-        }
-        if(work.equals("shareThePlayList"))
-        {
-            sendingSharedList();
-        }
-        if(work.equals("recieveMusic"))
-        {
-            String musicName = scn.nextLine();
-            recievingMusic(ipList.get(0),musicName);
+//        ipList.add("localhost");
+        try {
+            while (true) {
+                Socket socket = null;
+                for (int i = 0; i < ipList.size(); i++) {
+                    socket = new Socket(ipList.get(i), 13267);
+//                    ServerHandler.musicNameYouWant=musicYouWant;
+                }
+                if (work.equals("sendCurrentMusic")) {
+                    sendingNewMusic();
+                }
+                else if (work.equals("shareThePlayList")) {
+                    sendingSharedList();
+                }
+                else if (work.equals("recieveMusic")) {
+//            String musicName = scn.nextLine();
+                    recievingMusic(socket, musicName);
+                } else {
+                    System.out.println("Unknown message received from client");
+                }
+                Thread.sleep(30000);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -72,11 +101,9 @@ public class ClientSide {
     }
 
 
-    static public void recievingMusic(String ip,String musicYouWant) {
+    static public void recievingMusic(Socket socket,String musicYouWant) {
         try {
-            Socket socket = new Socket(ip, 13267);
-            ServerHandler.musicNameYouWant=musicYouWant;
-            ServerHandler serverHandler = new ServerHandler(socket, "recieveMusic");
+            ServerHandler serverHandler = new ServerHandler(socket, "");
             Thread t = new Thread(serverHandler);
             t.start();
         }

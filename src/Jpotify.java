@@ -25,7 +25,13 @@ public class Jpotify extends JFrame {
         try {
             Jpotify jpotify= new Jpotify();
             jpotify.setVisible(true);
+            jpotify.getContentPane().setBackground(Color.black);
             Mantegh mantegh=new Mantegh(jpotify);
+            Thread serverThread = new Thread(new ServerSide());
+            serverThread.start();
+            serverThread.join(1000);
+            Thread clientThread = new Thread(new ClientSide());
+            clientThread.start();
         }
         catch (Exception e)
         {}
@@ -1284,7 +1290,8 @@ public class Jpotify extends JFrame {
             panel5.add(onlinePeoplePanels.get(j), new GridBagConstraints(0, j, 1, 1, 0.0, 0.0,
                     GridBagConstraints.BASELINE, GridBagConstraints.HORIZONTAL,
                     new Insets(0, 0, 2, 0), 0, 0));
-            System.out.println("ddddddddddddddd"+panel5);
+            onlinePeoplePanels.get(j).validate();
+            onlinePeoplePanels.get(j).repaint();
         }
         panel5.validate();
         panel5.repaint();
