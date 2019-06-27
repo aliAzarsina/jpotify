@@ -19,7 +19,6 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-
         ArrayList<String> sharedlist=new ArrayList<>();
 
 

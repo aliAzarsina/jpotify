@@ -15,7 +15,7 @@ public class ClientSide {
 
 //        ipList.add("localhost");
 //        ipList.add("192.168.1.41");
-        ipList.add("172.26.4.8");
+        ipList.add("localhost");
 
         if(work.equals("sendCurrentMusic"))
         {

@@ -6,6 +6,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.border.*;
@@ -262,7 +263,7 @@ public class Jpotify extends JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\jpotifyLogo.png").getImage());
+        setIconImage(new ImageIcon(".\\bin\\images\\appImages\\jpotifyLogo.png").getImage());
         setTitle("Jpotify");
         setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         setMaximizedBounds(new Rectangle(0, 0, 1920, 1080));
@@ -333,7 +334,7 @@ public class Jpotify extends JFrame {
                 }
 
                 //---- label18 ----
-                label18.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addButtonNoBackground.png"));
+                label18.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addButtonNoBackground.png"));
                 label18.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -375,7 +376,7 @@ public class Jpotify extends JFrame {
                 panel13.setBackground(Color.black);
 
                 //---- label28 ----
-                label28.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addButtonNoBackground.png"));
+                label28.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addButtonNoBackground.png"));
                 label28.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -429,7 +430,7 @@ public class Jpotify extends JFrame {
                 panel14.setBackground(Color.black);
 
                 //---- label30 ----
-                label30.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addButtonNoBackground.png"));
+                label30.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addButtonNoBackground.png"));
                 label30.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -540,7 +541,7 @@ public class Jpotify extends JFrame {
                     panel12.setBackground(new Color(15, 15, 15));
 
                     //---- label21 ----
-                    label21.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\searchImageIcon.png"));
+                    label21.setIcon(new ImageIcon(".\\bin\\images\\appImages\\searchImageIcon.png"));
 
                     //---- textField1 ----
                     textField1.setBackground(Color.black);
@@ -582,7 +583,7 @@ public class Jpotify extends JFrame {
                 label9.setHorizontalAlignment(SwingConstants.CENTER);
 
                 //---- label12 ----
-                label12.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\userButton.png"));
+                label12.setIcon(new ImageIcon(".\\bin\\images\\appImages\\userButton.png"));
                 label12.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -654,7 +655,7 @@ public class Jpotify extends JFrame {
                         button1.setText("text");
 
                         //---- label13 ----
-                        label13.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\trashButton.png"));
+                        label13.setIcon(new ImageIcon(".\\bin\\images\\appImages\\trashButton.png"));
                         label13.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mouseEntered(MouseEvent e) {
@@ -668,7 +669,7 @@ public class Jpotify extends JFrame {
 
                         //---- button4 ----
                         button4.setBackground(new Color(102, 102, 102));
-                        button4.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addButtonNoBackground.png"));
+                        button4.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addButtonNoBackground.png"));
                         button4.setBorder(null);
                         button4.addMouseListener(new MouseAdapter() {
                             @Override
@@ -752,7 +753,7 @@ public class Jpotify extends JFrame {
                     ((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {52, 102, 102, 102, 102, 102, 102, 100, 0};
                     ((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {1.0, 1.0E-4};
                     ((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
-
+                    System.out.println(panel5);
                     //======== panel15 ========
                     {
                         panel15.setBackground(Color.black);
@@ -775,9 +776,9 @@ public class Jpotify extends JFrame {
                         label8.setForeground(Color.lightGray);
 
                         //---- button2 ----
-                        button2.setSelectedIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\downloadButton.png"));
+                        button2.setSelectedIcon(new ImageIcon(".\\bin\\images\\appImages\\downloadButton.png"));
                         button2.setBackground(Color.black);
-                        button2.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\downloadButton.png"));
+                        button2.setIcon(new ImageIcon(".\\bin\\images\\appImages\\downloadButton.png"));
                         button2.setBorderPainted(false);
                         button2.addMouseListener(new MouseAdapter() {
                             @Override
@@ -792,9 +793,9 @@ public class Jpotify extends JFrame {
 
                         //---- button3 ----
                         button3.setBackground(Color.black);
-                        button3.setSelectedIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\othersSharedlistButton.png"));
+                        button3.setSelectedIcon(new ImageIcon(".\\bin\\images\\appImages\\othersSharedlistButton.png"));
                         button3.setForeground(Color.white);
-                        button3.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\othersSharedlistButton.png"));
+                        button3.setIcon(new ImageIcon(".\\bin\\images\\appImages\\othersSharedlistButton.png"));
                         button3.setBorderPainted(false);
                         button3.addMouseListener(new MouseAdapter() {
                             @Override
@@ -843,9 +844,9 @@ public class Jpotify extends JFrame {
                                                 .addGap(3, 3, 3))
                         );
                     }
-                    panel5.add(panel15, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-                            GridBagConstraints.BASELINE, GridBagConstraints.HORIZONTAL,
-                            new Insets(0, 0, 2, 0), 0, 0));
+//                    panel5.add(panel15, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+//                            GridBagConstraints.BASELINE, GridBagConstraints.HORIZONTAL,
+//                            new Insets(0, 0, 2, 0), 0, 0));
                 }
                 scrollPane3.setViewportView(panel5);
             }
@@ -873,7 +874,7 @@ public class Jpotify extends JFrame {
                 panel11.setPreferredSize(new Dimension(300, 47));
 
                 //---- button11 ----
-                button11.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\previuseButtonImageIcon.png"));
+                button11.setIcon(new ImageIcon(".\\bin\\images\\appImages\\previuseButtonImageIcon.png"));
                 button11.setBackground(Color.black);
                 button11.setBorderPainted(false);
                 button11.addMouseListener(new MouseAdapter() {
@@ -891,7 +892,7 @@ public class Jpotify extends JFrame {
                 button12.setBackground(Color.black);
                 button12.setSelectedIcon(null);
                 button12.setForeground(Color.white);
-                button12.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\pauseButtonImageIcon.png"));
+                button12.setIcon(new ImageIcon(".\\bin\\images\\appImages\\pauseButtonImageIcon.png"));
                 button12.setBorderPainted(false);
                 button12.addMouseListener(new MouseAdapter() {
                     @Override
@@ -905,7 +906,7 @@ public class Jpotify extends JFrame {
                 });
 
                 //---- button13 ----
-                button13.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\playButtonImageIcon.png"));
+                button13.setIcon(new ImageIcon(".\\bin\\images\\appImages\\playButtonImageIcon.png"));
                 button13.setBackground(Color.black);
                 button13.setBorderPainted(false);
                 button13.addMouseListener(new MouseAdapter() {
@@ -920,7 +921,7 @@ public class Jpotify extends JFrame {
                 });
 
                 //---- button15 ----
-                button15.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\nextButtonImageIcon.png"));
+                button15.setIcon(new ImageIcon(".\\bin\\images\\appImages\\nextButtonImageIcon.png"));
                 button15.setBackground(Color.black);
                 button15.setBorderPainted(false);
                 button15.addMouseListener(new MouseAdapter() {
@@ -936,7 +937,7 @@ public class Jpotify extends JFrame {
 
                 //---- button5 ----
                 button5.setBackground(Color.black);
-                button5.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\shuffleButtonImageIcon.png"));
+                button5.setIcon(new ImageIcon(".\\bin\\images\\appImages\\shuffleButtonImageIcon.png"));
                 button5.setBorderPainted(false);
                 button5.addMouseListener(new MouseAdapter() {
                     @Override
@@ -950,10 +951,10 @@ public class Jpotify extends JFrame {
                 });
 
                 //---- button14 ----
-                button14.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addToSharedlistButton.png"));
+                button14.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addToSharedlistButton.png"));
                 button14.setBackground(Color.black);
                 button14.setBorderPainted(false);
-                button14.setSelectedIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addToSharedlistButtonSelected.png"));
+                button14.setSelectedIcon(new ImageIcon(".\\bin\\images\\appImages\\addToSharedlistButtonSelected.png"));
                 button14.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -966,7 +967,7 @@ public class Jpotify extends JFrame {
                 });
 
                 //---- button16 ----
-                button16.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\addToFavaritesButton.png"));
+                button16.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addToFavaritesButton.png"));
                 button16.setBackground(Color.black);
                 button16.setBorderPainted(false);
                 button16.addMouseListener(new MouseAdapter() {
@@ -988,7 +989,7 @@ public class Jpotify extends JFrame {
 
                 //---- button6 ----
                 button6.setBackground(Color.black);
-                button6.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\repeatButtonImageIcon.png"));
+                button6.setIcon(new ImageIcon(".\\bin\\images\\appImages\\repeatButtonImageIcon.png"));
                 button6.setBorderPainted(false);
                 button6.addMouseListener(new MouseAdapter() {
                     @Override
@@ -1069,7 +1070,7 @@ public class Jpotify extends JFrame {
                 panel16.setBackground(Color.black);
 
                 //---- label11 ----
-                label11.setIcon(new ImageIcon("E:\\AP_FinalProject\\Jpotify\\bin\\images\\appImages\\speakerButton.png"));
+                label11.setIcon(new ImageIcon(".\\bin\\images\\appImages\\speakerButton.png"));
                 label11.setBackground(Color.black);
 
                 //---- slider2 ----
@@ -1263,6 +1264,30 @@ public class Jpotify extends JFrame {
         panel9.validate();
         panel9.repaint();
 
+    }
+
+    static ArrayList<OnlinePeoplePanel> onlinePeoplePanels = new ArrayList<>();
+
+    public static void addOnlinePeoplePanel(OnlinePeoplePanel onlinePeoplePanel) {
+        onlinePeoplePanels.add(onlinePeoplePanel);
+    }
+
+    public static void removeOnlinePeoplePanel(OnlinePeoplePanel onlinePeoplePanel) {
+        onlinePeoplePanels.remove(onlinePeoplePanel);
+    }
+
+    public static void updateOnlinePeoplePanel () {
+
+
+        panel5.removeAll();
+        for (int j = 0; j < onlinePeoplePanels.size(); j++) {
+            panel5.add(onlinePeoplePanels.get(j), new GridBagConstraints(0, j, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.BASELINE, GridBagConstraints.HORIZONTAL,
+                    new Insets(0, 0, 2, 0), 0, 0));
+            System.out.println("ddddddddddddddd"+panel5);
+        }
+        panel5.validate();
+        panel5.repaint();
     }
 
     public static void clearCenterPanel() {
