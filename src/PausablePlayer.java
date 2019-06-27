@@ -204,26 +204,26 @@ public class PausablePlayer implements Runnable ,ChangeListener {
 
 
                 int i = 0;
-                for (Music music : Mantegh.currentAlbum.musics) {
+                for (Music music : NextMusicActionListener.currentAlbum.musics) {
 
 
                     if (music.musicName.equals(musicName)) {
-                        if (i == Mantegh.currentAlbum.musics.size() - 1) {
+                        if (i == NextMusicActionListener.currentAlbum.musics.size() - 1) {
 
                             try {
-                                fileInputStream = new FileInputStream(Mantegh.currentAlbum.musics.get(0).musicName);
-                                NextMusicActionListener.musicName=Mantegh.currentAlbum.musics.get(0).musicName;
+                                fileInputStream = new FileInputStream(NextMusicActionListener.currentAlbum.musics.get(0).musicName);
+                                NextMusicActionListener.musicName=NextMusicActionListener.currentAlbum.musics.get(0).musicName;
 
-                                NextMusicActionListener.music=Mantegh.currentAlbum.musics.get(0);
-                                PreviousButtonActionListener.music=Mantegh.currentAlbum.musics.get(0);
+                                NextMusicActionListener.music=NextMusicActionListener.currentAlbum.musics.get(0);
+                                PreviousButtonActionListener.music=NextMusicActionListener.currentAlbum.musics.get(0);
 
                                 advanceplayer = new Advanceplayer(fileInputStream);
-                                musicName=Mantegh.currentAlbum.musics.get(0).musicName;
-                                this.pausablePlayer.musicName=Mantegh.currentAlbum.musics.get(0).musicName;
+                                musicName=NextMusicActionListener.currentAlbum.musics.get(0).musicName;
+                                this.pausablePlayer.musicName=NextMusicActionListener.currentAlbum.musics.get(0).musicName;
 
                                 jSlider.addChangeListener(pausablePlayer);
                                 t=null;
-                                t=new Thread(new Run(fileInputStream,Mantegh.currentAlbum.musics.get(0).musicName,advanceplayer,advanceplayer.calculateframes(),0,pausablePlayer,button1,button2,jSlider));
+                                t=new Thread(new Run(fileInputStream,NextMusicActionListener.currentAlbum.musics.get(0).musicName,advanceplayer,advanceplayer.calculateframes(),0,pausablePlayer,button1,button2,jSlider));
                                 button1.addActionListener(new Actionlisten5(t));
                                 button2.addActionListener(new Actionlisten3(t));
                                 fileInputStream.getChannel().position(0);
@@ -240,10 +240,10 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                             try {
 
 
-                                fileInputStream = new FileInputStream(Mantegh.currentAlbum.musics.get(i + 1).musicName);
+                                fileInputStream = new FileInputStream(NextMusicActionListener.currentAlbum.musics.get(i + 1).musicName);
                                 advanceplayer = new Advanceplayer(fileInputStream);
-                                musicName=Mantegh.currentAlbum.musics.get(i+1).musicName;
-                                this.pausablePlayer.musicName=Mantegh.currentAlbum.musics.get(i+1).musicName;
+                                musicName=NextMusicActionListener.currentAlbum.musics.get(i+1).musicName;
+                                this.pausablePlayer.musicName=NextMusicActionListener.currentAlbum.musics.get(i+1).musicName;
 
 
                                 ChangeListener [] changeListeners=jSlider.getChangeListeners();
@@ -254,10 +254,10 @@ public class PausablePlayer implements Runnable ,ChangeListener {
 
                                 t=null;
                                 jSlider.addChangeListener(pausablePlayer);
-                                t=new Thread(new Run(fileInputStream,Mantegh.currentAlbum.musics.get(i+1).musicName,advanceplayer,advanceplayer.calculateframes(),0,pausablePlayer,button1,button2,jSlider));
-                                NextMusicActionListener.musicName=Mantegh.currentAlbum.musics.get(i+1).musicName;
-                                NextMusicActionListener.music=Mantegh.currentAlbum.musics.get(i+1);
-                                PreviousButtonActionListener.music=Mantegh.currentAlbum.musics.get(i+1);
+                                t=new Thread(new Run(fileInputStream,NextMusicActionListener.currentAlbum.musics.get(i+1).musicName,advanceplayer,advanceplayer.calculateframes(),0,pausablePlayer,button1,button2,jSlider));
+                                NextMusicActionListener.musicName=NextMusicActionListener.currentAlbum.musics.get(i+1).musicName;
+                                NextMusicActionListener.music=NextMusicActionListener.currentAlbum.musics.get(i+1);
+                                PreviousButtonActionListener.music=NextMusicActionListener.currentAlbum.musics.get(i+1);
 
                                 ActionListener [] actionListeners=button1.getActionListeners();
                                 for(ActionListener actionListener:actionListeners)

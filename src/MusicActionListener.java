@@ -36,6 +36,11 @@ public class MusicActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
 
+            NextMusicActionListener.currentAlbum=Mantegh.currentAlbum;
+            PreviousButtonActionListener.currentAlbum=Mantegh.currentAlbum;
+            NextMusicRunnable.currentAlbum=Mantegh.currentAlbum;
+
+            //NextMusicActionListener.currentAlbum=music.album;
             //System.out.println("ججججججججججججججججججججججججججج");
 
             setCurrentAlbum();
@@ -87,15 +92,15 @@ public class MusicActionListener implements ActionListener {
             mantegh.currentthread.start();
             System.out.println("mohammad");
             NextMusicActionListener.changeCurrentMusic(music);
-            NextMusicRunnable.changeCurrentAlbum(album);
+            //NextMusicRunnable.changeCurrentAlbum(album);
 
             PreviousButtonActionListener.changeCurrentMusic(music);
 
             NextMusicRunnable.musicName=music.musicName;
             Mantegh.currentAlbum=album;
-            PreviousButtonActionListener.changeCurrentAlbum(album);
-            NextMusicActionListener.changeCurrentAlbum(album);
-            NextMusicRunnable.changeCurrentAlbum(album);
+           // PreviousButtonActionListener.changeCurrentAlbum(album);
+            //NextMusicActionListener.changeCurrentAlbum(album);
+           // NextMusicRunnable.changeCurrentAlbum(album);
 
         }
         catch (Exception e1)

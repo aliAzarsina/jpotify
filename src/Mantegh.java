@@ -36,6 +36,11 @@ public class Mantegh {
     static ArrayList<Music> musicArrayListPlayList = new ArrayList<>();
 
 
+
+    static ArrayList<ArrayList<String>> musicsOfAlbums = new ArrayList<>();
+    static ArrayList<String> allAlbumsName = new ArrayList<>();
+
+
     public Mantegh(final Jpotify jpotify) {
 
 
@@ -103,6 +108,83 @@ public class Mantegh {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
+
+
+
+
+
+
+
+
+
+        for (Music music1:album.musics) { // ali abdollahi method
+                    if (allAlbumsName.size() == 0) {
+                       allAlbumsName.add(music1.albumName);
+                        ArrayList<String> strings=new ArrayList<>();
+                     musicsOfAlbums.add(0,strings);
+                     strings.add(music1.musicName);
+                    }
+                    else
+                    {
+                        boolean test=false;
+                        for (int i = 0; i <allAlbumsName.size() ; i++)
+                        {
+                            if(music1.albumName.equals(allAlbumsName.get(i)))
+                            {
+                                test=true;
+                                musicsOfAlbums.get(i).add(0,music1.musicName);
+                            }
+                        }
+                        if(test==false)
+                        {
+                            allAlbumsName.add(music1.albumName);
+                            ArrayList<String> strings=new ArrayList<>();
+                            musicsOfAlbums.add(0,strings);
+                            strings.add(music1.musicName);
+                        }
+                        test=false;
+                    }
+
+               }
+
+               Jpotify.button5.addMouseListener(new MouseListenerAlbum(allAlbumsName,musicsOfAlbums,album.musics));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         File file1 = new File(".\\bin\\playLists\\playListsAddresses.txt");
         playLists = new HashMap<>();

@@ -28,6 +28,15 @@ public class NextMusicActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+
+        for(Music music:NextMusicActionListener.currentAlbum.musics)
+        {
+
+            System.out.println("gggggggggggggggggggggggggg"+"     "+music.musicName);
+
+
+        }
+
          PausablePlayer.jsliderValue=0;
 
          try {
@@ -36,10 +45,11 @@ public class NextMusicActionListener implements ActionListener {
              {
                  System.out.println("aaaaaaaaaaaaaaaaaaaaaaa" + Mantegh.currentPausableplayer.musicName);
 
+                   if(Mantegh.currentPausableplayer.t!=null)
+                   {Mantegh.currentPausableplayer.fileInputStream.close();
 
-                 Mantegh.currentPausableplayer.fileInputStream.close();
                  Mantegh.currentPausableplayer.t.suspend();
-                 Mantegh.currentPausableplayer.t = null;
+                 Mantegh.currentPausableplayer.t = null;}
              }
          }
          catch (Exception e1)

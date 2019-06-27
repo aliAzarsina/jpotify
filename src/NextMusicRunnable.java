@@ -60,7 +60,6 @@ public class NextMusicRunnable implements Runnable{
                             mantegh.makeThread(mantegh.currentthread, fileInputStream, pausablePlayer);
                             mantegh.jpotify.button12.addActionListener(new Actionlisten2(mantegh.currentthread));
                             mantegh.jpotify.button13.addActionListener(new Actionlisten(mantegh.currentthread));
-                            mantegh.currentAlbum = currentAlbum;
                             mantegh.currentthread.start();
 
                             PreviousButtonActionListener.changeCurrentMusic(currentAlbum.musics.get(0));
@@ -96,7 +95,6 @@ public class NextMusicRunnable implements Runnable{
                             mantegh.makeThread(mantegh.currentthread, fileInputStream, pausablePlayer);
                             mantegh.jpotify.button12.addActionListener(new Actionlisten2(mantegh.currentthread));
                             mantegh.jpotify.button13.addActionListener(new Actionlisten(mantegh.currentthread));
-                            mantegh.currentAlbum = currentAlbum;
                             mantegh.currentthread.start();
 
 

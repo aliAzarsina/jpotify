@@ -10,7 +10,15 @@ public  class MouseListenerSelf implements MouseListener {
     JButton jButton;
     ArrayList<MusicPanel> musicPanels = new ArrayList<>();
 
+
+    ArrayList<Music> allMusics;
+    ArrayList<String> arrayList;
+    ArrayList<Music> currenAlbumMusics=new ArrayList<>();
+
     public MouseListenerSelf(ArrayList<Music> musics,ArrayList<String> arrayList) {
+        Album album=new Album("",new ArrayList<Music>(),Mantegh.currentAlbum);
+        this.arrayList=arrayList;
+        this.allMusics=musics;
         this.musics = musics;
         for (String str:arrayList) {
             for (int i = 0; i < musics.size(); i++) {
@@ -19,19 +27,27 @@ public  class MouseListenerSelf implements MouseListener {
                 System.out.println(musics.get(i));
                 if (str.equals(musics.get(i).musicName)) {
                     musicPanels.add(musics.get(i).musicPanel);
+                    currenAlbumMusics.add(musics.get(i));
                 }
             }
         }
+        System.out.println("yahossein         "+"            ssssssssss"+"  ");
+
+
 //        jPanel.setBackground(Color.red);
     }
     @Override
     public void mouseClicked(MouseEvent e) {
         Jpotify.clearCenterPanel();
+
+        Album album=new Album("",new ArrayList<Music>(),Mantegh.currentAlbum);
         System.out.println(musics.size()+"hoseinnnnnnnnnnnnnn");
-        for (int i = 0; i < musics.size(); i++) {
-            System.out.println(musics.get(i).musicName);
+        for (int i = 0; i < currenAlbumMusics.size(); i++) {
             Jpotify.addPanelToCenterPanel(musicPanels.get(i));
+            album.musics.add(currenAlbumMusics.get(i));
+            currenAlbumMusics.get(i).album=album;
         }
+        Mantegh.currentAlbum=album;
 
 //        jPanel.validate();
 //        jPanel.repaint();

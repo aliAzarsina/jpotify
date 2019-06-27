@@ -1,3 +1,6 @@
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.Mp3File;
+
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ public class Music {
     NextMusicActionListener nextMusicActionListener;
     PreviousButtonActionListener previousButtonActionListener;
     MusicPanel musicPanel;
+     String albumName="aa";
 
     public Music (JButton button,FileInputStream fileInputStream,Mantegh mantegh,Album album,String musicName,NextMusicActionListener nextMusicActionListener,PreviousButtonActionListener previousButtonActionListener)
     {
@@ -24,6 +28,18 @@ public class Music {
         this.fileInputStream=fileInputStream;
         this.musics=album.musics;
         this.button=button;
+
+//        try {
+//            Mp3File mp3file = new Mp3File(musicName);
+//            ID3v1 id3v1Tag = null;
+//            if (mp3file.hasId3v1Tag())
+//                id3v1Tag = mp3file.getId3v1Tag();
+//            if (id3v1Tag.getAlbum() != null)
+//                albumName = id3v1Tag.getAlbum();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
 //        setTheActionListener();
     }
 

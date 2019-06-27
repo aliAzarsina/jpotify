@@ -534,7 +534,7 @@ public class Jpotify extends JFrame {
     private JPanel panel3;
     private JPanel panel4;
     private JPanel panel11;
-   static JSlider slider1;
+    static JSlider slider1;
     static JButton button11;
     static JButton button12;
     static JButton button13;
@@ -563,7 +563,7 @@ public class Jpotify extends JFrame {
         panel14.add(newLabel, new GridBagConstraints(0, addSongToListCounter, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 5, 0), 0, 0));
-       addSongToListCounter++;
+        addSongToListCounter++;
 
         panel14.validate();
         panel14.repaint();
