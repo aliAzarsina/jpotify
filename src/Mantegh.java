@@ -147,7 +147,7 @@ public class Mantegh {
 
                }
 
-               Jpotify.button5.addMouseListener(new MouseListenerAlbum(allAlbumsName,musicsOfAlbums,album.musics));
+               Jpotify.label31.addMouseListener(new MouseListenerAlbum(allAlbumsName,musicsOfAlbums,album.musics));
 
 
 
