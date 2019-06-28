@@ -129,10 +129,14 @@ public class SharelistFrame extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - ali
-    private JScrollPane scrollPane1;
-    private JPanel panel1;
-    private JPanel panel2;
-    private JLabel label1;
-    private JButton button1;
+    static JScrollPane scrollPane1;
+    static JPanel panel1;
+    static JPanel panel2;
+    static JLabel label1;
+    static JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+    int I
+    void  addPanel (OthersSharelistsPanel othersSharelistsPanel) {
+
+    }
 }

@@ -1,6 +1,9 @@
 import java.io.*;
 import java.net.Socket;
+import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 
 public class ServerHandler implements Runnable {
@@ -9,10 +12,10 @@ public class ServerHandler implements Runnable {
     static String musicNameYouWant;
     static String currenMusic;
     private Socket socket;
-
-    public ServerHandler(Socket socket,String work) throws IOException{
+//    static HashMap<String, String> request = new HashMap<>();
+    static ArrayList<ArrayList<String>> request = new ArrayList<>();
+    public ServerHandler(Socket socket) throws IOException{
         this.socket = socket;
-        this.work = work;
         dos = new DataOutputStream(socket.getOutputStream());
     }
 
@@ -32,27 +35,21 @@ public class ServerHandler implements Runnable {
     int bytesRead;
     int current = 0;
 
-
-
-
-
-
     public void run() {
+        while (request.size() == 0) {
+
+        }
+        String str = request.get(0).get(0);
+        Scanner scn = new Scanner(str);
+        work = scn.nextLine();
+        if (work.equals("receiveMusic")) {
+            receivingMusic(request.get(0).get(2));
+        }
+//        BufferedReader buffer = new BufferedReader();
+
         sharedlist.add("goli");
         sharedlist.add("kholi");
-        System.out.println("mamalui");
-        if(work.equals("recieveMusic"))
-        {
-            recievingMusic(musicNameYouWant);
-        }
-        else if(work.equals("sendCurrentMusic"))
-        {
-            sendingNewMusicName(currenMusic);
-        }
-        else if(work.equals("shareThePlayList"))
-        {
-            sendingSharedlist(sharedlist);
-        }
+        request.remove(request.get(0));
     }
 
 
@@ -93,11 +90,11 @@ public class ServerHandler implements Runnable {
 
 
 
-    public void recievingMusic (String string)
+    public void receivingMusic (String string)
     {
 
         try {
-            dos.writeUTF("recievingfile");
+            dos.writeUTF("receivingFile");
             dos.writeUTF(string);
             String path = ".\\bin\\OthersSharedList\\" + string + ".mp3";
             // receive file

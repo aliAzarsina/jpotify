@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.Socket;
 
 public class OnlinePeoplePanel extends JPanel{
 
@@ -11,17 +12,20 @@ public class OnlinePeoplePanel extends JPanel{
     JLabel lastSeen;
     JButton downloadMusic;
     JButton getSharelist;
+    Socket socket;
 
-    public OnlinePeoplePanel(String userNamee, String lastMusicc, String lastMusicArtistt, String lastSeenn) {
+    public OnlinePeoplePanel(String userNamee, String lastMusicc, String lastMusicArtistt, String lastSeenn, Socket sockett) {
+        socket = sockett;
         userName = new JLabel(userNamee);
         lastMusic = new JLabel(lastMusicc);
         lastMusicArtist = new JLabel(lastMusicArtistt);
         lastSeen = new JLabel(lastSeenn);
         downloadMusic = new JButton();
-        downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener());
+        downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener(socket));
         getSharelist = new JButton();
-        
-        
+        getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener());
+
+
 
         setBackground(Color.BLACK);
 

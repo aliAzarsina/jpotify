@@ -7,6 +7,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.border.*;
@@ -16,6 +17,9 @@ import javax.swing.border.*;
  * @author ali
  */
 public class Jpotify extends JFrame {
+
+    static String username;
+
     public Jpotify() {
         initComponents();
     }

@@ -2,6 +2,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ClientHandler implements Runnable {
 
@@ -11,6 +12,7 @@ public class ClientHandler implements Runnable {
     Socket sock = null;
     static String musicName=new String();
 
+
     public ClientHandler(ServerSocket serverSocket, Socket socket) {
         servsock = serverSocket;
         sock = socket;
@@ -18,6 +20,8 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
+
 
         ArrayList<String> sharedlist=new ArrayList<>();
 
@@ -30,8 +34,6 @@ public class ClientHandler implements Runnable {
 
 
         try {
-
-
             System.out.println("Accepted connection : " + sock);
             is = new DataInputStream(sock.getInputStream());
             String checkRequest;
@@ -39,9 +41,10 @@ public class ClientHandler implements Runnable {
 
 
 
-            if(checkRequest.equals("recievingfile"))
+            if(checkRequest.equals("receivingFile"))
             {
-
+                String fileName = is.readUTF();
+                System.out.println(fileName + "****************** request from the server");
                 File myFile = new File(FILE_TO_SEND);
                 byte[] mybytearray = new byte[(int) myFile.length()];
                 fis = new FileInputStream(myFile);
