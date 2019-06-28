@@ -13,14 +13,9 @@ public class Mantegh {
     FileInputStream fileInputStream;
     Advanceplayer advanceplayer;
     PausablePlayer pausablePlayer;
-    //Album currentAlbum;
-    ArrayList<Music> album1musics;
-    ArrayList<Music> album2musics;
     static PausablePlayer currentPausableplayer;
-    PreviousButtonActionListener previousButtonActionListener;
-    NextMusicActionListener nextMusicActionListener;
-    //static ArrayList<ChangeListener1>changeListeners=new ArrayList<>();
-//    ArrayList<Album> albums = new ArrayList<>();
+    static PreviousButtonActionListener previousButtonActionListener;
+    static NextMusicActionListener nextMusicActionListener;
     static Album currentAlbum;
     static PausablePlayer currentPusableplayer;
     static int time = 0;
@@ -34,11 +29,21 @@ public class Mantegh {
     static Music music;
     static ArrayList<Music> musicArrayList = new ArrayList<>();
     static ArrayList<Music> musicArrayListPlayList = new ArrayList<>();
-
-
-
     static ArrayList<ArrayList<String>> musicsOfAlbums = new ArrayList<>();
     static ArrayList<String> allAlbumsName = new ArrayList<>();
+
+    static ArrayList<Music> currentAlbumisShowing;
+
+    static ArrayList<MouseListenerSelf> mouselistenersOfPlayLists=new ArrayList<>();
+    static ArrayList<JLabel> labelsOfPlayLists=new ArrayList<>();
+    static boolean isthecurrentplaylist=false;
+    static MouseListenerSelf thecurrentPlaylistisshowingmouselistener;
+
+    static ArrayList<MouseListenerSelf> mouseListenersofalbums=new ArrayList<>();
+
+
+
+
 
 
     public Mantegh(final Jpotify jpotify) {
@@ -90,24 +95,19 @@ public class Mantegh {
 
                 File file1 = new File(line);
                 album.name = line;
-//                System.out.println(line+"hasannnnnn");
-
-
-                //ArrayList<String> musics=new ArrayList<>();
                 JButton jButton = new JButton(line);
                 FileInputStream fileInputStream = new FileInputStream(line);
                 music = new Music(jButton, fileInputStream, this, album, line, nextMusicActionListener, previousButtonActionListener);
                 music.setMusicPanel(new MusicPanel(new JLabel(line),new JLabel("mamali"),music.button,music));
-//                        System.out.println("ssssssssss");
-                System.out.println(line);
                 music.musicName = line;
                 music.button = new JButton(line);
                 album.musics.add(music);
             }
-            Jpotify.label29.addMouseListener(new MouseListenerMusiclist(album.musics));
+
         } catch (Exception e1) {
             e1.printStackTrace();
         }
+        Jpotify.label29.addMouseListener(new MouseListenerMusiclist(album.musics));
 
 
 
@@ -115,75 +115,48 @@ public class Mantegh {
 
 
 
-
-
-        for (Music music1:album.musics) { // ali abdollahi method
-                    if (allAlbumsName.size() == 0) {
-                       allAlbumsName.add(music1.albumName);
-                        ArrayList<String> strings=new ArrayList<>();
-                     musicsOfAlbums.add(0,strings);
-                     strings.add(music1.musicName);
-                    }
-                    else
+        for (Music music1:album.musics) {
+            if (allAlbumsName.size() == 0) {
+                allAlbumsName.add(music1.albumName);
+                ArrayList<String> strings=new ArrayList<>();
+                musicsOfAlbums.add(0,strings);
+                strings.add(music1.musicName);
+            }
+            else
+            {
+                boolean test=false;
+                for (int i = 0; i <allAlbumsName.size() ; i++)
+                {
+                    if(music1.albumName.equals(allAlbumsName.get(i)))
                     {
-                        boolean test=false;
-                        for (int i = 0; i <allAlbumsName.size() ; i++)
-                        {
-                            if(music1.albumName.equals(allAlbumsName.get(i)))
-                            {
-                                test=true;
-                                musicsOfAlbums.get(i).add(0,music1.musicName);
-                            }
-                        }
-                        if(test==false)
-                        {
-                            allAlbumsName.add(music1.albumName);
-                            ArrayList<String> strings=new ArrayList<>();
-                            musicsOfAlbums.add(0,strings);
-                            strings.add(music1.musicName);
-                        }
-                        test=false;
+                        test=true;
+                        musicsOfAlbums.get(i).add(0,music1.musicName);
                     }
+                }
+                if(test==false)
+                {
+                    allAlbumsName.add(music1.albumName);
+                    ArrayList<String> strings=new ArrayList<>();
+                    musicsOfAlbums.add(0,strings);
+                    strings.add(music1.musicName);
+                }
+                test=false;
+            }
 
-               }
+        }
 
-               Jpotify.label31.addMouseListener(new MouseListenerAlbum(allAlbumsName,musicsOfAlbums,album.musics));
+        Jpotify.label31.addMouseListener(new MouseListenerAlbum(allAlbumsName,musicsOfAlbums,album.musics));
 
-
-
-
-
-                                                                                                                                    
-
-
-
-
-
-
-
-
+        Jpotify.label28.addMouseListener(new AddNewMusicActionListener());
 
 
-
+        Jpotify.label18.addMouseListener(new AddNewSharedListButton());
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Thread clientThread = new Thread(new ClientSide());
+        clientThread.start();
 
 
         File file1 = new File(".\\bin\\playLists\\playListsAddresses.txt");
@@ -201,22 +174,56 @@ public class Mantegh {
 
                 try (BufferedReader brr = new BufferedReader(new FileReader(file2))) {
                     while ((line1 = brr.readLine()) != null) {
-                         playlistSongsAddress.add(line1);
+                        playlistSongsAddress.add(line1);
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                System.out.println("sddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-                playlist2.put(jLabel, playlistSongsAddress);
-                //musicArrayList = new ArrayList<>();
-                Jpotify.addPlayList(jLabel);
-                jLabel.addMouseListener(new MouseListenerSelf(album.musics,playlistSongsAddress));
-                playlistSongsAddress = new ArrayList<>();
-            }
 
+                playlist2.put(jLabel, playlistSongsAddress);
+                Jpotify.addPlayList(jLabel);
+                MouseListenerSelf mouseListenerSelf=new MouseListenerSelf(true,line,album.musics,playlistSongsAddress);
+                jLabel.addMouseListener(mouseListenerSelf);
+                mouselistenersOfPlayLists.add(mouseListenerSelf);
+                mouseListenerSelf.nameOfPlayListLabel=jLabel.getText();
+                labelsOfPlayLists.add(jLabel);
+                playlistSongsAddress = new ArrayList<>();
+
+                if(line.equals(".\\bin\\sharedList.txt")) {
+                    for (int j = 0; j < mouseListenerSelf.currenAlbumMusics.size(); j++) {
+                        ServerHandler.sharedlist.add(mouseListenerSelf.currenAlbumMusics.get(j).musicName);
+
+                    }
+                    for (int j = 0; j < ClientSide.ipList.size(); j++) {
+
+                        ClientSide.sendingSharedList();
+
+                    }
+                }
+
+
+
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        /////////اینجا تکست لیبل توکنایز شود با اری لیست labelsOfplaylists
+
+
+
+
+
+
+
+
+
+
+
+
+        //System.out.println("fffffffffffffffffffffffff"+Mantegh.labelsOfPlayLists.get(0).getText());
 
 //        ArrayList<Music> allMusics = new ArrayList<>();
 //        try (BufferedReader br = new BufferedReader(new FileReader(".\\bin\\allMusics\\allMusicList.txt"))) {
@@ -276,6 +283,12 @@ public class Mantegh {
 //        } catch (Exception e) {
 //
 //        }
+
+
+
+
+
+
 
     }
 

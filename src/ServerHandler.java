@@ -14,6 +14,12 @@ public class ServerHandler implements Runnable {
     static String musicNameYouWant;
     static String currenMusic;
     private Socket socket;
+
+
+
+    static  String musicName;
+    static  String musicArtist;
+    static String time;
     //    static HashMap<String, String> request = new HashMap<>();
     static ArrayList<ArrayList<String>> request = new ArrayList<>();
 
@@ -48,7 +54,7 @@ public class ServerHandler implements Runnable {
         if (work.equals("receiveMusic")) {
             receivingMusic(musicNameYouWant);
         } else if (work.equals("sendCurrentMusic")) {
-            sendCurrentMusic("MY MY","MY MY singer","now");
+            sendCurrentMusic();
         } else if (work.equals("shareThePlayList")) {
             sendingSharedlist(sharedlist);
         } else {
@@ -57,7 +63,7 @@ public class ServerHandler implements Runnable {
 
 //            sharedlist.add("goli");
 //            sharedlist.add("kholi");
-        request.remove(request.get(0));
+//        request.remove(request.get(0));
         try {
             Thread.sleep(15000);
         } catch (Exception e) {
@@ -66,13 +72,13 @@ public class ServerHandler implements Runnable {
     }
 
 
-    public void sendCurrentMusic(String musicName, String musicArtist, String lastSeen) {
+    public void sendCurrentMusic() {
 
         try {
             dos.writeUTF("sendCurrentMusic");
             dos.writeUTF(musicName);
             dos.writeUTF(musicArtist);
-            dos.writeUTF(lastSeen);
+            dos.writeUTF(time);
         } catch (Exception e) {
             e.printStackTrace();
         }

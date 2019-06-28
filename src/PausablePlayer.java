@@ -95,35 +95,36 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                 int FPS = (int) source.getValue();
                 Mantegh.timeThread.suspend();
 
-              //  if(FPS-jsliderValue>120||FPS-jsliderValue<-120) {
+                //  if(FPS-jsliderValue>120||FPS-jsliderValue<-120) {
 
-                    Jpotify.slider1.setValue(FPS);
+                Jpotify.slider1.setValue(FPS);
 
-                    System.out.println("hosein        hoseinnnnnnnnnn");
+                System.out.println("hosein        hoseinnnnnnnnnn");
 
-                    t.suspend();
-                    fileInputStream.close();
-                    Thread.sleep(600);
-                    t = null;
-                    fileInputStream = new FileInputStream(musicName);
-                    fileInputStream.getChannel().position(0);
-
-
-                    ActionListener[] actionListeners = button1.getActionListeners();
-                    for (ActionListener actionListener : actionListeners) {
-                        button1.removeActionListener(actionListener);
-                    }
-                    ActionListener[] actionListeners2 = button2.getActionListeners();
-                    for (ActionListener actionListener : actionListeners2) {
-                        button2.removeActionListener(actionListener);
-                    }
+                //if(t!=null)
+                t.suspend();
+                fileInputStream.close();
+                Thread.sleep(600);
+                t = null;
+                fileInputStream = new FileInputStream(musicName);
+                fileInputStream.getChannel().position(0);
 
 
-                    t = new Thread(new Run(fileInputStream, musicName, player, player.calculateframes(), FPS, this, button1, button2, jSlider));
-                    fileInputStream.getChannel().position(0);
-                    button1.addActionListener(new Actionlisten5(t));
-                    button2.addActionListener(new Actionlisten3(t));
-                    t.start();
+                ActionListener[] actionListeners = button1.getActionListeners();
+                for (ActionListener actionListener : actionListeners) {
+                    button1.removeActionListener(actionListener);
+                }
+                ActionListener[] actionListeners2 = button2.getActionListeners();
+                for (ActionListener actionListener : actionListeners2) {
+                    button2.removeActionListener(actionListener);
+                }
+
+
+                t = new Thread(new Run(fileInputStream, musicName, player, player.calculateframes(), FPS, this, button1, button2, jSlider));
+                fileInputStream.getChannel().position(0);
+                button1.addActionListener(new Actionlisten5(t));
+                button2.addActionListener(new Actionlisten3(t));
+                t.start();
 
                 //}
 
@@ -191,6 +192,10 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                     Jpotify.slider1.setValue(min);
                     Jpotify.slider1.addChangeListener(this.pausablePlayer);
 
+                     ServerHandler.musicName=musicName;
+                     ServerHandler.musicArtist="dddddddd";
+                     ServerHandler.time="ssss";
+                     ClientSide.sendingNewMusic();
                     advanceplayer.play(min, max);
                 }
 
@@ -339,7 +344,7 @@ public class PausablePlayer implements Runnable ,ChangeListener {
         }
     }
 
-//
+    //
 //   /* public void stateChanged(ChangeEvent e) {
 //        JSlider source = (JSlider) e.getSource();
 //        if (!source.getValueIsAdjusting()) {
@@ -629,20 +634,20 @@ public class PausablePlayer implements Runnable ,ChangeListener {
 //
 //
 //
-class Actionlisten3 implements ActionListener
-{
-   Thread thread;
-   public Actionlisten3(Thread t)
+    class Actionlisten3 implements ActionListener
     {
-        thread=t;
-    }
-       @Override
+        Thread thread;
+        public Actionlisten3(Thread t)
+        {
+            thread=t;
+        }
+        @Override
         public void actionPerformed(ActionEvent e) {
-        thread.resume();
-        Mantegh.timeThread.resume();
+            thread.resume();
+            Mantegh.timeThread.resume();
 
+        }
     }
-}
 
     class Actionlisten5 implements ActionListener {
         Thread thread;

@@ -22,10 +22,6 @@ public class ClientHandler implements Runnable {
     public ClientHandler(ServerSocket serverSocket, Socket socket, boolean isNew) {
         servsock = serverSocket;
         sock = socket;
-        OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("ALI AA","lastMUSIC","lastARTIST","2m",socket);
-        Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
-        Jpotify.updateOnlinePeoplePanel();
-        panel = onlinePeoplePanel;
     }
 
     @Override
@@ -62,13 +58,23 @@ public class ClientHandler implements Runnable {
             } else if (checkRequest.equals("shareThePlayList")) {
                 ObjectInputStream objectInputStream = new ObjectInputStream(is);
                 ArrayList<String> shareList = (ArrayList<String>) objectInputStream.readObject();
-                panel.musicNames = shareList;
+                panel.musicAddresses = shareList;
+                OnlinePeoplePanel.setMusicNames(sharedlist);
+                OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("ALI AA", "lastMUSIC", "lastARTIST", "2m", sock);
+                Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
+                Jpotify.updateOnlinePeoplePanel();
+                panel = onlinePeoplePanel;
+                OnlinePeoplePanel.setShareInit();
+
             } else if (checkRequest.equals("sendCurrentMusic")) {
                 musicName = is.readUTF();
                 musicArtist = is.readUTF();
                 lastSeen = is.readUTF();
+
                 Jpotify.removeOnlinePeoplePanel(panel);
                 OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("Ali A",musicName,musicArtist,lastSeen,sock);
+                Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
+                System.out.println("dddddddddddddddddddddddddddddddddd"+musicName);
                 Jpotify.updateOnlinePeoplePanel();
             } else
                 System.out.println("serverSde : Unknown order received ");

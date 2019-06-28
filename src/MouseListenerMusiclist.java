@@ -6,25 +6,36 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class MouseListenerMusiclist implements MouseListener {
-    ArrayList<MusicPanel> musicPanels = new ArrayList<>();
-    ArrayList<Music> musics;
+    static ArrayList<MusicPanel> musicPanels = new ArrayList<>();
+    static ArrayList<Music> musics;
 
     public MouseListenerMusiclist(ArrayList<Music> musicss) {
         musics = musicss;
-        for (int i = 0; i < musics.size(); i++) {
-            System.out.println("alasjlkjdsls");
-            musicPanels.add(musicss.get(i).musicPanel);
-            System.out.println(musics.get(i).musicName+"ppppppppppppppppppppppppkkkkk");
+        System.out.println("aliabd024");
+        if(musicss.size()!=0) {
+            for (int i = 0; i < musics.size(); i++) {
+                musicPanels.add(musicss.get(i).musicPanel);
+            }
         }
     }
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        Mantegh.isthecurrentplaylist=false;
+
         Jpotify.clearCenterPanel();
-        System.out.println(musics.size()+"bbbbbvvvvvvvvvvvvv");
-        for (int i = 0; i < musics.size(); i++) {
-            System.out.println(musics.get(i).musicName);
+        Album album=new Album("",new ArrayList<Music>(),Mantegh.currentAlbum);
+
+        if(musics.size()!=0)
+        {for (int i = 0; i < musics.size(); i++) {
+
             Jpotify.addPanelToCenterPanel(musicPanels.get(i));
-        }
+            album.musics.add(musics.get(i));
+        }}
+
+        Mantegh.currentAlbumisShowing=musics;
+        Mantegh.currentAlbum=album;
     }
 
     @Override

@@ -14,40 +14,64 @@ public  class MouseListenerSelf implements MouseListener {
     ArrayList<Music> allMusics;
     ArrayList<String> arrayList;
     ArrayList<Music> currenAlbumMusics=new ArrayList<>();
+    String AlbumName;
+    String nameOfPlayListLabel;
+    boolean istheplaylist;
 
-    public MouseListenerSelf(ArrayList<Music> musics,ArrayList<String> arrayList) {
+    public MouseListenerSelf(boolean istheplaylist,String AlbumName,ArrayList<Music> musics,ArrayList<String> arrayList) {
+
+        this.istheplaylist=istheplaylist;
+        this.AlbumName=AlbumName;
         Album album=new Album("",new ArrayList<Music>(),Mantegh.currentAlbum);
         this.arrayList=arrayList;
         this.allMusics=musics;
         this.musics = musics;
-        for (String str:arrayList) {
+
+        try {
             for (int i = 0; i < musics.size(); i++) {
-                System.out.println(str + "hhh");
-                System.out.println();
-                System.out.println(musics.get(i));
-                if (str.equals(musics.get(i).musicName)) {
-                    musicPanels.add(musics.get(i).musicPanel);
-                    currenAlbumMusics.add(musics.get(i));
+                for (String str : arrayList) {
+
+                    if (str.equals(musics.get(i).musicName)) {
+                        musicPanels.add(musics.get(i).musicPanel);
+                        currenAlbumMusics.add(musics.get(i));
+                        break;
+                    }
                 }
             }
+        }catch (Exception e2)
+        {
+
         }
-        System.out.println("yahossein         "+"            ssssssssss"+"  ");
 
 
-//        jPanel.setBackground(Color.red);
+
     }
     @Override
     public void mouseClicked(MouseEvent e) {
         Jpotify.clearCenterPanel();
+        if(istheplaylist==true)
+        {
+            Mantegh.isthecurrentplaylist=true;
+            Mantegh.thecurrentPlaylistisshowingmouselistener=this;
+        }
+        else
+        {
+            Mantegh.isthecurrentplaylist=false;
+        }
 
         Album album=new Album("",new ArrayList<Music>(),Mantegh.currentAlbum);
-        System.out.println(musics.size()+"hoseinnnnnnnnnnnnnn");
         for (int i = 0; i < currenAlbumMusics.size(); i++) {
             Jpotify.addPanelToCenterPanel(musicPanels.get(i));
-            album.musics.add(currenAlbumMusics.get(i));
+            album.musics.add(musicPanels.get(i).music);
             currenAlbumMusics.get(i).album=album;
         }
+
         Mantegh.currentAlbum=album;
+        Mantegh.currentAlbumisShowing=currenAlbumMusics;
+
+
+
+
 
 //        jPanel.validate();
 //        jPanel.repaint();

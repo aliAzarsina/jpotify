@@ -51,39 +51,12 @@ public class ClientSide implements Runnable {
             e.printStackTrace();
         }
 
-        try {
-            while (true) {
-                Socket socket = null;
-                while (work == null) {
-                    System.out.print("");
-                }
-
-                for (int i = 0; i < ipList.size(); i++) {
-                    socket = new Socket(ipList.get(i), 13267);
-
-                    if (work.equals("sendCurrentMusic")) {
-                        sendingNewMusic();
-                    } else if (work.equals("shareThePlayList")) {
-                        sendingSharedList();
-                    } else if (work.equals("receiveMusic")) {
-//                        String musicName = scn.nextLine();
-                        recievingMusic(socket, musicName); // music name is music address
-                    } else {
-                        System.out.println("Unknown message received from client");
-                    }
-                }
-                work = null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     static public void sendingSharedList() {
         try {
             for (int i = 0; i < ipList.size(); i++) {
                 Socket socket = new Socket(ipList.get(i), 13267);
-                ServerHandler.sharedlist = sharedList;
                 ServerHandler serverHandler = new ServerHandler(socket, "shareThePlayList");
                 Thread t = new Thread(serverHandler);
                 t.start();

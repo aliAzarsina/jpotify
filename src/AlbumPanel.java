@@ -4,20 +4,23 @@ import java.util.ArrayList;
 
 public class AlbumPanel extends JPanel {
     JPanel panel1;
-//    static JButton musicImageButton;
+    //    static JButton musicImageButton;
     static JLabel musicNameLable;
     static JLabel musicTagLable;
     static Music music;
     static Album album;
     JButton musicImageButton;
+    String AlbumName;
 
-    public AlbumPanel (ArrayList<String> albummusics,ArrayList<Music> allmusics){
-
+    public AlbumPanel (String AlbumName,ArrayList<String> albummusics,ArrayList<Music> allmusics){
+        this.AlbumName=AlbumName;
         this.setBackground(new Color(102, 102, 102));
         System.out.println();
 
-       musicImageButton=new JButton();
-        musicImageButton.addMouseListener(new MouseListenerSelf(allmusics,albummusics));
+        musicImageButton=new JButton();
+        MouseListenerSelf mouseListenerSelf=new MouseListenerSelf(false,AlbumName,allmusics,albummusics);
+        Mantegh.mouseListenersofalbums.add(mouseListenerSelf);
+        musicImageButton.addMouseListener(mouseListenerSelf);
 
 
         musicNameLable = new JLabel("sssss");

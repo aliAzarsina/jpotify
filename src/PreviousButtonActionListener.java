@@ -150,13 +150,13 @@ public class PreviousButtonActionListener implements ActionListener {
     }
 
 
-   static public void changeCurrentAlbum(Album album)
+    static public void changeCurrentAlbum(Album album)
     {
-       currentAlbum=album;
+        currentAlbum=album;
     }
-   static public void changeCurrentMusic(Music music1)
+    static public void changeCurrentMusic(Music music1)
     {
-       music=music1;
+        music=music1;
     }
 
 }

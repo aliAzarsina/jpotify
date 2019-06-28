@@ -21,11 +21,11 @@ public class MusicActionListener implements ActionListener {
         this.nextMusicActionListener=nextMusicActionListener;
         this.previousButtonActionListener=previousButtonActionListener;
         this.musicName=musicName;
-       this.album=album;
-      this.mantegh=mantegh;
-      this.fileInputStream=fileInputStream;
-      this.musics=album.musics;
-      this.music=music;
+        this.album=album;
+        this.mantegh=mantegh;
+        this.fileInputStream=fileInputStream;
+        this.musics=album.musics;
+        this.music=music;
 
 
 
@@ -35,6 +35,42 @@ public class MusicActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+
+
+            for (int i = 0; i < Mantegh.allAlbumsName.size(); i++) {
+                String string=Mantegh.allAlbumsName.get(i);
+
+                if(string.equals(music.albumName))
+                {
+                    System.out.println("llllllllllllllllllllllllllllllllllllllllllllllllllllll");
+                    ArrayList<String> musicName=Mantegh.musicsOfAlbums.get(i);
+                    Mantegh.allAlbumsName.remove(i);
+                    Mantegh.musicsOfAlbums.remove(i);
+                    Mantegh.allAlbumsName.add(0,music.musicName);
+                    Mantegh.musicsOfAlbums.add(0,musicName);
+                }
+
+            }
+
+            //         for (int i = 0; i < MouseListenerMusiclist.musics.size(); i++) {
+            //             String string=MouseListenerMusiclist.musics.get(i).musicName;
+
+////                if(string.equals(music.musicName))
+////                {
+////                   Music music=MouseListenerMusiclist.musics.get(i);
+////                   MouseListenerMusiclist.musics.remove(i);
+////                   MouseListenerMusiclist.musics.add(0,music);
+////                    System.out.println("llllllllllllllllllllllllllllllllllllllllllllllllsssssssssss");
+////                   MusicPanel musicPanel=MouseListenerMusiclist.musicPanels.get(i);
+////                   MouseListenerMusiclist.musicPanels.remove(i);
+////                   MouseListenerMusiclist.musicPanels.add(0,musicPanel);
+////
+////                }
+////
+////            }
+
+
+
 
             NextMusicActionListener.currentAlbum=Mantegh.currentAlbum;
             PreviousButtonActionListener.currentAlbum=Mantegh.currentAlbum;
@@ -73,7 +109,7 @@ public class MusicActionListener implements ActionListener {
             pausablePlayer = new PausablePlayer(fileInputStream, mantegh.jpotify, mantegh.jpotify.slider1, mantegh.jpotify.button12, mantegh.jpotify.button13,musicName);
 
 
-              Mantegh.currentPausableplayer=pausablePlayer;
+            Mantegh.currentPausableplayer=pausablePlayer;
 
 
             SliderChangeListener.setPausablePlayer(pausablePlayer);
@@ -98,9 +134,9 @@ public class MusicActionListener implements ActionListener {
 
             NextMusicRunnable.musicName=music.musicName;
             Mantegh.currentAlbum=album;
-           // PreviousButtonActionListener.changeCurrentAlbum(album);
+            // PreviousButtonActionListener.changeCurrentAlbum(album);
             //NextMusicActionListener.changeCurrentAlbum(album);
-           // NextMusicRunnable.changeCurrentAlbum(album);
+            // NextMusicRunnable.changeCurrentAlbum(album);
 
         }
         catch (Exception e1)
@@ -110,9 +146,9 @@ public class MusicActionListener implements ActionListener {
     }
 
 
- public void setCurrentAlbum()
+    public void setCurrentAlbum()
     {
-       mantegh.setCurrentAlbum(album);
+        mantegh.setCurrentAlbum(album);
     }
 
 
@@ -120,5 +156,5 @@ public class MusicActionListener implements ActionListener {
 
 
 
-    }
+}
 

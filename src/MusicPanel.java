@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MusicPanel extends JPanel {
     JPanel panel1;
@@ -7,6 +9,9 @@ public class MusicPanel extends JPanel {
     JLabel musicNameLable;
     JLabel musicTagLable;
     Music music;
+    static JLabel deleteMusic;
+    static JButton addMusicToList;
+
 
     public MusicPanel (JLabel musicNameLable1, JLabel musicTagLable1, JButton musicImageButton11, Music music1){
         this.setBackground(new Color(102, 102, 102));
@@ -16,12 +21,14 @@ public class MusicPanel extends JPanel {
         musicImageButton.addActionListener(new MusicActionListener(music.album,music, music.fileInputStream,music.mantegh,music.musicName,music.mantegh.nextMusicActionListener,music.mantegh.previousButtonActionListener));
         musicNameLable = musicNameLable1;
         musicTagLable = musicTagLable1;
+        deleteMusic = new JLabel();
+        addMusicToList = new JButton();
+        addMusicToList.addMouseListener(new AddMusicToListButton(music));
 
-        //---- musicImageButton ----
-//        musicImageButton.setIcon(null);
-//        musicImageButton.setBackground(new Color(0, 102, 102));
-//        musicImageButton.setText("ImageOfMusic");
-        //musicImageButton.addActionListener();
+        deleteMusic.addMouseListener(new DeleteMusicListener(music1));
+
+
+        this.setBackground(new Color(102, 102, 102));
 
         //---- musicNameLable ----
         musicNameLable.setText("Music Name");
@@ -32,25 +39,64 @@ public class MusicPanel extends JPanel {
         musicTagLable.setText("DetailsOfMusic");
         musicTagLable.setVerticalAlignment(SwingConstants.TOP);
 
+        //---- button1 ----
+//        button1.setText("text");
+
+        //---- deleteMusic ----
+        deleteMusic.setIcon(new ImageIcon(".\\bin\\images\\appImages\\trashButton.png"));
+        deleteMusic.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//                label13MouseEntered(e);
+//            }
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                label13MouseExited(e);
+//            }
+        });
+
+        //---- addMusicToList ----
+        addMusicToList.setBackground(new Color(102, 102, 102));
+        addMusicToList.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addButtonNoBackground.png"));
+        addMusicToList.setBorder(null);
+        addMusicToList.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseEntered(MouseEvent e) {
+//                button4MouseEntered(e);
+//            }
+//            @Override
+//            public void mouseExited(MouseEvent e) {
+//                button4MouseExited(e);
+//            }
+        });
+
         GroupLayout thisLayout = new GroupLayout(this);
         this.setLayout(thisLayout);
         thisLayout.setHorizontalGroup(
                 thisLayout.createParallelGroup()
                         .addGroup(thisLayout.createSequentialGroup()
                                 .addGroup(thisLayout.createParallelGroup()
-                                        .addComponent(musicImageButton, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(musicNameLable, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(musicTagLable, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0))
+                                        .addComponent(musicNameLable, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(musicTagLable, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(thisLayout.createParallelGroup()
+                                        .addComponent(deleteMusic, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(addMusicToList, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(musicImageButton, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
         );
         thisLayout.setVerticalGroup(
                 thisLayout.createParallelGroup()
                         .addGroup(thisLayout.createSequentialGroup()
-                                .addComponent(musicImageButton, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(musicNameLable)
-                                .addGap(0, 0, 0)
-                                .addComponent(musicTagLable, GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                                .addComponent(musicImageButton11, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(thisLayout.createParallelGroup()
+                                        .addComponent(musicNameLable)
+                                        .addComponent(addMusicToList, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(thisLayout.createParallelGroup()
+                                        .addComponent(musicTagLable, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(deleteMusic, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
         );
     }
 

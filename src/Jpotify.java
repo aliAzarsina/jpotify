@@ -29,13 +29,12 @@ public class Jpotify extends JFrame {
         try {
             Jpotify jpotify= new Jpotify();
             jpotify.setVisible(true);
-            jpotify.getContentPane().setBackground(Color.black);
-            Mantegh mantegh=new Mantegh(jpotify);
             Thread serverThread = new Thread(new ServerSide());
             serverThread.start();
-            serverThread.join(1000);
-            Thread clientThread = new Thread(new ClientSide());
-            clientThread.start();
+            jpotify.getContentPane().setBackground(Color.black);
+            mantegh=new Mantegh(jpotify);
+
+
         }
         catch (Exception e)
         {}
@@ -328,6 +327,7 @@ public class Jpotify extends JFrame {
                         label20.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
                         label20.setForeground(Color.white);
                         label20.setVerticalAlignment(SwingConstants.BOTTOM);
+                        label20.setVisible(false);
                         panel7.add(label20, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                                 GridBagConstraints.BASELINE, GridBagConstraints.HORIZONTAL,
                                 new Insets(0, 0, 0, 0), 0, 0));
@@ -1221,6 +1221,7 @@ public class Jpotify extends JFrame {
     static JPanel panel16;
     static JLabel label11;
     static JSlider slider2;
+    static Mantegh mantegh;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 

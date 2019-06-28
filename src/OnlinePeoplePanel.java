@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class OnlinePeoplePanel extends JPanel{
 
@@ -12,10 +13,10 @@ public class OnlinePeoplePanel extends JPanel{
     JLabel lastMusicArtist;
     JLabel lastSeen;
     JButton downloadMusic;
-    JButton getSharelist;
-    Socket socket;
-    ArrayList<String> musicNames = new ArrayList<>();
-    ArrayList<String> musicAddresses = new ArrayList<>();
+    static JButton getSharelist;
+    static Socket socket;
+    static ArrayList<String> musicNames = new ArrayList<>();
+    static ArrayList<String> musicAddresses = new ArrayList<>();
 
     public OnlinePeoplePanel(String userNamee, String lastMusicc, String lastMusicArtistt, String lastSeenn, Socket sockett) {
         socket = sockett;
@@ -27,9 +28,27 @@ public class OnlinePeoplePanel extends JPanel{
         downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener(socket));
         getSharelist = new JButton();
         /////////////////////////////////
-        musicNames.add("empty");
-        /////////////////////////////////
-        getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener(musicAddresses,musicNames,socket));
+        ArrayList<String> temp = new ArrayList<>();
+                for (int i = 0; i < musicAddresses.size(); i++) {
+                    String name = "";
+                    StringTokenizer st = new StringTokenizer(musicAddresses.get(i), "\\");
+                    while (st.hasMoreTokens()) {
+                        name = st.nextToken();
+                    }
+                    st = new StringTokenizer(name, ".");
+                    String finalName = st.nextToken();
+                    temp.add(i, finalName);
+                }
+                musicNames = temp;
+//        getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener(musicAddresses,musicNames,socket));
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(musicAddresses);
+        System.out.println(musicNames);
+
 
 
 
@@ -122,6 +141,26 @@ public class OnlinePeoplePanel extends JPanel{
                                         .addComponent(downloadMusic, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
                                 .addGap(3, 3, 3))
         );
+
+    }
+
+    static void setShareInit() {
+        getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener(musicAddresses,musicNames,socket));
+    }
+
+    public static void setMusicNames(ArrayList<String> musicAddresses) {
+        ArrayList<String> temp = new ArrayList<>();
+        for (int i = 0; i < musicAddresses.size(); i++) {
+            String name = "";
+            StringTokenizer st = new StringTokenizer(musicAddresses.get(i), "\\");
+            while (st.hasMoreTokens()) {
+                name = st.nextToken();
+            }
+            st = new StringTokenizer(name, ".");
+            String finalName = st.nextToken();
+            temp.add(i, finalName);
+        }
+        musicNames = temp;
 
     }
 

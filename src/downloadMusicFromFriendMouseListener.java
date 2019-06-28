@@ -17,7 +17,7 @@ public class downloadMusicFromFriendMouseListener implements MouseListener {
             temp.add(0,"receiveMusic"); // order
             temp.add(1,"localhost"); // host
             temp.add(2,"123"); // name
-            ServerHandler.request.add(0,temp);
+//            ServerHandler.request.add(0,temp);
         } catch (Exception e1) {
             e1.printStackTrace();
         }

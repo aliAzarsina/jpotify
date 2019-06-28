@@ -14,9 +14,24 @@ public  class MouseListenerAlbum implements MouseListener {
 
     public MouseListenerAlbum(ArrayList<String> albums,ArrayList<ArrayList<String>> musicsOfAlbums,ArrayList<Music> allmusics) {
 
-        this.albums=albums;
-        this.musicsOfAlbums=musicsOfAlbums;
-        this.allmusics=allmusics;
+        try {
+            this.albums = albums;
+            this.musicsOfAlbums = musicsOfAlbums;
+            this.allmusics = allmusics;
+
+            for (int i = 0; i < albums.size(); i++) {
+
+                AlbumPanel albumPanel = new AlbumPanel(albums.get(i), musicsOfAlbums.get(i), allmusics);
+
+                albumPanels.add(albumPanel);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
 
 
 
@@ -25,19 +40,11 @@ public  class MouseListenerAlbum implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Jpotify.clearCenterPanel();
-        for (int i = 0; i <albums.size() ; i++) {
 
-            AlbumPanel albumPanel=new AlbumPanel(musicsOfAlbums.get(i),allmusics);
-
-            albumPanels.add(albumPanel);
-        }
         for (int i = 0; i < albums.size(); i++) {
             Jpotify.addPanelToCenterPanel(albumPanels.get(i));
         }
 
-//        jPanel.validate();
-//        jPanel.repaint();
-//        Jpotify.addPlayList(new JLabel("salam"));
     }
 
     @Override
