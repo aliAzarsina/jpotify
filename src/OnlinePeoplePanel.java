@@ -27,10 +27,7 @@ public class OnlinePeoplePanel extends JPanel{
         downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener(socket));
         getSharelist = new JButton();
         /////////////////////////////////
-        musicNames.add("khafan");
-        musicNames.add("mafan");
-        musicNames.add("chekhel");
-        musicNames.add("pekhel");
+        musicNames.add("empty");
         /////////////////////////////////
         getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener(musicAddresses,musicNames,socket));
 

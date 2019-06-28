@@ -1,5 +1,6 @@
 import org.omg.PortableServer.THREAD_POLICY_ID;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,39 +13,39 @@ public class ClientHandler implements Runnable {
     public final static String FILE_TO_SEND = ".\\bin\\MySharedList\\123.mp3";  // you may change this
     private ServerSocket servsock = null;
     Socket sock = null;
-    static String musicName=new String();
+    static String musicName = "";
+    static String musicArtist = "";
+    static String lastSeen = "";
+    OnlinePeoplePanel panel;
 
 
-    public ClientHandler(ServerSocket serverSocket, Socket socket) {
+    public ClientHandler(ServerSocket serverSocket, Socket socket, boolean isNew) {
         servsock = serverSocket;
         sock = socket;
+        OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("ALI AA","lastMUSIC","lastARTIST","2m",socket);
+        Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
+        Jpotify.updateOnlinePeoplePanel();
+        panel = onlinePeoplePanel;
     }
 
     @Override
     public void run() {
 
-
-
-        ArrayList<String> sharedlist=new ArrayList<>();
-
-
+        ArrayList<String> sharedlist = new ArrayList<>();
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         OutputStream os = null;
         DataInputStream is = null;
-
-
+        boolean anotherRequest = true;
 
         try {
-
             is = new DataInputStream(sock.getInputStream());
             String checkRequest;
             checkRequest = is.readUTF();
 
+            System.out.println("serverSide@ New request : " + checkRequest);
 
-
-            if(checkRequest.equals("receivingFile"))
-            {
+            if (checkRequest.equals("receiveMusic")) {
                 String fileName = is.readUTF();
                 System.out.println(fileName + "****************** request from the server");
                 File myFile = new File(FILE_TO_SEND);
@@ -58,24 +59,23 @@ public class ClientHandler implements Runnable {
                 os.flush();
                 Thread.sleep(10000);
                 System.out.println("Done.");
-
-            }
-            if(checkRequest.equals("sendingsharedlist"))
-            {
-
+            } else if (checkRequest.equals("shareThePlayList")) {
                 ObjectInputStream objectInputStream = new ObjectInputStream(is);
-                objectInputStream.readObject();
-            }
+                ArrayList<String> shareList = (ArrayList<String>) objectInputStream.readObject();
+                panel.musicNames = shareList;
+            } else if (checkRequest.equals("sendCurrentMusic")) {
+                musicName = is.readUTF();
+                musicArtist = is.readUTF();
+                lastSeen = is.readUTF();
+                Jpotify.removeOnlinePeoplePanel(panel);
+                OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("Ali A",musicName,musicArtist,lastSeen,sock);
+                Jpotify.updateOnlinePeoplePanel();
+            } else
+                System.out.println("serverSde : Unknown order received ");
 
-            if(checkRequest.equals("sendingmusic"))
-            {
-                musicName= is.readUTF();
-                System.out.println(musicName);
-            }
 
-
-        } catch(Exception e){
-        } finally{
+        } catch (Exception e) {
+        } finally {
             try {
                 if (bis != null) bis.close();
                 if (os != null) os.close();
@@ -83,8 +83,6 @@ public class ClientHandler implements Runnable {
             } catch (Exception e1) {
             }
         }
-
-
 
     }
 

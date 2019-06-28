@@ -8,22 +8,26 @@ import java.util.Scanner;
 
 public class ServerHandler implements Runnable {
 
+    static String currentMusicAddress = "";
+
     String work;
     static String musicNameYouWant;
     static String currenMusic;
     private Socket socket;
-//    static HashMap<String, String> request = new HashMap<>();
+    //    static HashMap<String, String> request = new HashMap<>();
     static ArrayList<ArrayList<String>> request = new ArrayList<>();
-    public ServerHandler(Socket socket) throws IOException{
+
+    public ServerHandler(Socket socket, String Order) throws IOException {
         this.socket = socket;
         dos = new DataOutputStream(socket.getOutputStream());
+        work = Order;
     }
 
     public void setWork(String work) {
         this.work = work;
     }
 
-    static ArrayList<String> sharedlist=new ArrayList<>();
+    static ArrayList<String> sharedlist = new ArrayList<>();
 
 
     public final static int FILE_SIZE = 20000000; // file size temporary hard coded
@@ -35,64 +39,58 @@ public class ServerHandler implements Runnable {
     int bytesRead;
     int current = 0;
 
+    public static void setMusicNameYouWant(String musicNameYouWant) {
+        ServerHandler.musicNameYouWant = musicNameYouWant;
+    }
+
     public void run() {
-        while (request.size() == 0) {
-            System.out.print("");
-            // void
-        }
-        String str = request.get(0).get(0);
-        Scanner scn = new Scanner(str);
-        work = scn.nextLine();
+
         if (work.equals("receiveMusic")) {
-            receivingMusic(request.get(0).get(2));
+            receivingMusic(musicNameYouWant);
+        } else if (work.equals("sendCurrentMusic")) {
+            sendCurrentMusic("MY MY","MY MY singer","now");
+        } else if (work.equals("shareThePlayList")) {
+            sendingSharedlist(sharedlist);
+        } else {
+            System.out.println("ClientSide : unknown message receieved");
         }
-//        BufferedReader buffer = new BufferedReader();
 
-        sharedlist.add("goli");
-        sharedlist.add("kholi");
+//            sharedlist.add("goli");
+//            sharedlist.add("kholi");
         request.remove(request.get(0));
-    }
-
-
-
-
-
-
-
-    public void sendingNewMusicName(String string)
-    {
-
         try {
-            dos.writeUTF("sendingmusic");
-            dos.writeUTF(string);
+            Thread.sleep(15000);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e)
-        { }
+    }
+
+
+    public void sendCurrentMusic(String musicName, String musicArtist, String lastSeen) {
+
+        try {
+            dos.writeUTF("sendCurrentMusic");
+            dos.writeUTF(musicName);
+            dos.writeUTF(musicArtist);
+            dos.writeUTF(lastSeen);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
 
-    public void sendingSharedlist(ArrayList<String> sharedlist)
-    {
-
+    public void sendingSharedlist(ArrayList<String> sharedlist) {
         try {
-            dos.writeUTF("sendingsharedlist");
+            dos.writeUTF("shareThePlayList");
             ObjectOutputStream ob = new ObjectOutputStream(dos);
             ob.writeObject(sharedlist);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
 
 
-
-
-
-
-
-    public void receivingMusic (String string)
-    {
+    public void receivingMusic(String string) {
 
         try {
             dos.writeUTF("receivingFile");
@@ -113,23 +111,19 @@ public class ServerHandler implements Runnable {
 
             bos.write(mybytearray, 0, current);
             bos.flush();
-            System.out.println("File " +" downloaded (" + current + " bytes read)");
+            System.out.println("File " + " downloaded (" + current + " bytes read)");
             Thread.sleep(20000);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
 
             try {
                 if (fos != null) fos.close();
                 if (bos != null) bos.close();
                 if (socket != null) socket.close();
+            } catch (Exception e) {
             }
-            catch (Exception e)
-            {}
         }
     }
 }

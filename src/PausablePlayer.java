@@ -191,7 +191,6 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                     Jpotify.slider1.setValue(min);
                     Jpotify.slider1.addChangeListener(this.pausablePlayer);
 
-
                     advanceplayer.play(min, max);
                 }
 

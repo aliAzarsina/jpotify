@@ -10,25 +10,33 @@ public class ClientSide implements Runnable {
     static ArrayList<String> ipName = new ArrayList<>();
     static String currentMusicName = new String();
     static ArrayList<String> sharedList = new ArrayList<>();
+    static HashMap<String, String> requestFromServers = new HashMap<>(); // ip, request protocol
     static String musicName = "";
-    static String work = "";
+    static String work = null;
     Mantegh mantegh;
     Jpotify jpotify;
     String username;
     JButton downloadButton = new JButton();
+    static String order;
 
     public ClientSide() {
 //        this.username = username;
 //        this.jpotify = jpotify;
     }
 
+    public static void setMusicName(String musicName) {
+        ClientSide.musicName = musicName;
+    }
+
     @Override
     public void run() {
+
         File file = new File(".\\bin\\ipList.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 ipList.add(line);
+                requestFromServers.put(line, "");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,41 +51,29 @@ public class ClientSide implements Runnable {
             e.printStackTrace();
         }
 
-//        Scanner scn=new Scanner(System.in);
-//        String work=scn.nextLine();
-
-//        ipList.add("localhost");
-//        ipList.add("192.168.1.41");
-//        ipList.add("localhost");
         try {
-//            while (true) {
-                Scanner scn = new Scanner(System.in);
+            while (true) {
                 Socket socket = null;
-                for (int i = 0; i < ipList.size(); i++) {
-                    socket = new Socket(ipList.get(i), 13267);
-                    ServerHandler serverHandler = new ServerHandler(socket);
-                    System.out.println("#########################");
-                    ServerHandler.currenMusic = currentMusicName;
-                    Thread t = new Thread(serverHandler);
-                    t.start();
-//                    ServerHandler.musicNameYouWant=musicYouWant;
-//                    if (request.get(ipList.get(i)) != null)
-//                        work = request.get(ipList.get(i));
-//                    if (work.equals("sendCurrentMusic")) {
-//                        sendingNewMusic();
-//                    } else if (work.equals("shareThePlayList")) {
-//                        sendingSharedList();
-//                    } else if (work.equals("receiveMusic")) {
-//                        String musicName = scn.nextLine();
-//                        recievingMusic(socket, musicName);
-//                    } else {
-//                        System.out.println("Unknown message received from client");
-//                    }
-//                    request.remove(ipList.get(i));
+                while (work == null) {
+                    System.out.print("");
                 }
 
-//                Thread.sleep(30000);
-//            }
+                for (int i = 0; i < ipList.size(); i++) {
+                    socket = new Socket(ipList.get(i), 13267);
+
+                    if (work.equals("sendCurrentMusic")) {
+                        sendingNewMusic();
+                    } else if (work.equals("shareThePlayList")) {
+                        sendingSharedList();
+                    } else if (work.equals("receiveMusic")) {
+//                        String musicName = scn.nextLine();
+                        recievingMusic(socket, musicName); // music name is music address
+                    } else {
+                        System.out.println("Unknown message received from client");
+                    }
+                }
+                work = null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,11 +84,11 @@ public class ClientSide implements Runnable {
             for (int i = 0; i < ipList.size(); i++) {
                 Socket socket = new Socket(ipList.get(i), 13267);
                 ServerHandler.sharedlist = sharedList;
-//                ServerHandler serverHandler = new ServerHandler(socket, "shareThePlayList");
-//                Thread t = new Thread(serverHandler);
-//                t.start();
-
+                ServerHandler serverHandler = new ServerHandler(socket, "shareThePlayList");
+                Thread t = new Thread(serverHandler);
+                t.start();
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,9 +101,9 @@ public class ClientSide implements Runnable {
             for (int i = 0; i < ipList.size(); i++) {
                 Socket socket = new Socket(ipList.get(i), 13267);
                 ServerHandler.currenMusic = currentMusicName;
-//                ServerHandler serverHandler = new ServerHandler(socket, "sendCurrentMusic");
-//                Thread t = new Thread(serverHandler);
-//                t.start();
+                ServerHandler serverHandler = new ServerHandler(socket, "sendCurrentMusic");
+                Thread t = new Thread(serverHandler);
+                t.start();
 
             }
         } catch (Exception e) {
@@ -119,9 +115,10 @@ public class ClientSide implements Runnable {
 
     static public void recievingMusic(Socket socket, String musicYouWant) {
         try {
-//            ServerHandler serverHandler = new ServerHandler(socket, "");
-//            Thread t = new Thread(serverHandler);
-//            t.start();
+            ServerHandler serverHandler = new ServerHandler(socket, "receiveMusic");
+            ServerHandler.musicNameYouWant = musicYouWant;
+            Thread t = new Thread(serverHandler);
+            t.start();
         } catch (Exception e) {
         }
     }
