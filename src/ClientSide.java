@@ -56,6 +56,7 @@ public class ClientSide implements Runnable {
                 for (int i = 0; i < ipList.size(); i++) {
                     socket = new Socket(ipList.get(i), 13267);
                     ServerHandler serverHandler = new ServerHandler(socket);
+                    System.out.println("#########################");
                     ServerHandler.currenMusic = currentMusicName;
                     Thread t = new Thread(serverHandler);
                     t.start();

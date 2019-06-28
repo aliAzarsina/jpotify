@@ -287,14 +287,6 @@ public class Jpotify extends JFrame {
             panel1.setBackground(Color.black);
             panel1.setBorder(null);
 
-            // JFormDesigner evaluation mark
-            panel1.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                            "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                            java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-
             //======== panel6 ========
             {
                 panel6.setBackground(Color.black);
@@ -1299,6 +1291,10 @@ public class Jpotify extends JFrame {
         }
         panel5.validate();
         panel5.repaint();
+        panel3.validate();
+        panel3.repaint();
+        scrollPane3.validate();
+        scrollPane3.repaint();
     }
 
     public static void clearCenterPanel() {

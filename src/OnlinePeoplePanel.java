@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class OnlinePeoplePanel extends JPanel{
 
@@ -13,6 +14,8 @@ public class OnlinePeoplePanel extends JPanel{
     JButton downloadMusic;
     JButton getSharelist;
     Socket socket;
+    ArrayList<String> musicNames = new ArrayList<>();
+    ArrayList<String> musicAddresses = new ArrayList<>();
 
     public OnlinePeoplePanel(String userNamee, String lastMusicc, String lastMusicArtistt, String lastSeenn, Socket sockett) {
         socket = sockett;
@@ -23,7 +26,13 @@ public class OnlinePeoplePanel extends JPanel{
         downloadMusic = new JButton();
         downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener(socket));
         getSharelist = new JButton();
-        getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener());
+        /////////////////////////////////
+        musicNames.add("khafan");
+        musicNames.add("mafan");
+        musicNames.add("chekhel");
+        musicNames.add("pekhel");
+        /////////////////////////////////
+        getSharelist.addMouseListener(new showOthersSharelistButtonMouselistener(musicAddresses,musicNames,socket));
 
 
 

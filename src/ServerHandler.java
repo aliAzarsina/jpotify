@@ -37,7 +37,8 @@ public class ServerHandler implements Runnable {
 
     public void run() {
         while (request.size() == 0) {
-
+            System.out.print("");
+            // void
         }
         String str = request.get(0).get(0);
         Scanner scn = new Scanner(str);

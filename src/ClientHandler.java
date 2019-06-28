@@ -1,3 +1,5 @@
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -34,7 +36,7 @@ public class ClientHandler implements Runnable {
 
 
         try {
-            System.out.println("Accepted connection : " + sock);
+
             is = new DataInputStream(sock.getInputStream());
             String checkRequest;
             checkRequest = is.readUTF();
@@ -54,7 +56,7 @@ public class ClientHandler implements Runnable {
                 System.out.println("Sending " + FILE_TO_SEND + "(" + mybytearray.length + " bytes)");
                 os.write(mybytearray, 0, mybytearray.length);
                 os.flush();
-                Thread.sleep(20000);
+                Thread.sleep(10000);
                 System.out.println("Done.");
 
             }

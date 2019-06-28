@@ -4,6 +4,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -134,9 +135,22 @@ public class SharelistFrame extends JFrame {
     static JPanel panel2;
     static JLabel label1;
     static JButton button1;
+    static ArrayList<OthersSharelistsPanel> othersSharelistsPanels = new ArrayList<>();
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-    int I
+//    int I
     void  addPanel (OthersSharelistsPanel othersSharelistsPanel) {
-
+        othersSharelistsPanels.add(othersSharelistsPanel);
+    }
+    void updatePanels () {
+        panel1.removeAll();
+        for (int i = 0; i < othersSharelistsPanels.size(); i++) {
+            panel1.add(othersSharelistsPanels.get(i), new GridBagConstraints(0, i, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 2, 0), 0, 0));
+        }
+        panel1.validate();
+        panel1.repaint();
+        scrollPane1.validate();
+        scrollPane1.repaint();
     }
 }
