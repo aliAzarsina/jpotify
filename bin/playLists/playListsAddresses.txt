@@ -1,2 +1,3 @@
-.\bin\playLists\myFavaritPlayList.txt
-.\bin\playLists\mySharedPlayList.txt
+.\bin\sharedList.txt
+.\bin\favoriteMusics.txt
+

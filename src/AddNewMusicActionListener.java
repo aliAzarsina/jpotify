@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 
 public class AddNewMusicActionListener implements MouseListener{
 
@@ -89,16 +90,27 @@ public class AddNewMusicActionListener implements MouseListener{
                     }
                 }
 
-
+                boolean isThere = true;
                 for(MouseListenerSelf mouseListenerSelf:Mantegh.mouseListenersofalbums)
                 {
+
                     if(mouseListenerSelf.AlbumName.equals(music.albumName))
                     {
+                        isThere=false;
 
                         mouseListenerSelf.currenAlbumMusics.add(music);
                         mouseListenerSelf.musicPanels.add(music.musicPanel);
                     }
                 }
+                if(isThere)
+                {
+                    System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+                    ArrayList<String> musicsOfAlbum = new ArrayList<>();
+                    musicsOfAlbum.add(music.musicName);
+                    AlbumPanel albumPanel = new AlbumPanel(music.albumName, musicsOfAlbum, Mantegh.album.musics);
+                    MouseListenerAlbum.albumPanels.add(albumPanel);
+                }
+
 
                 Jpotify.clearCenterPanel();
                 for (Music music1 : Mantegh.currentAlbumisShowing)

@@ -1,3 +1,2 @@
-.\bin\allMusics\Alimi.mp3
 .\bin\allMusics\Helali1.mp3
 .\bin\allMusics\Helali2.mp3

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public  class MouseListenerAlbum implements MouseListener {
     ArrayList<Music> musics = new ArrayList<>();
     JButton jButton;
-    ArrayList<AlbumPanel> albumPanels= new ArrayList<>();
+    static ArrayList<AlbumPanel> albumPanels= new ArrayList<>();
     ArrayList<ArrayList<String>> musicsOfAlbums;
     ArrayList<String> albums;
     ArrayList<Music> allmusics;
@@ -41,8 +41,9 @@ public  class MouseListenerAlbum implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Jpotify.clearCenterPanel();
 
-        for (int i = 0; i < albums.size(); i++) {
+        for (int i = 0; i < albumPanels.size(); i++) {
             Jpotify.addPanelToCenterPanel(albumPanels.get(i));
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
         }
 
     }

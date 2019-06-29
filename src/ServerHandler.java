@@ -1,3 +1,11 @@
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.Mp3File;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.nio.Buffer;
@@ -143,7 +151,129 @@ public class ServerHandler implements Runnable {
             bos.write(mybytearray, 0, current);
             bos.flush();
             System.out.println("File " + " downloaded (" + current + " bytes read)");
-            Thread.sleep(20000);
+            Thread.sleep(5000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+                JButton jButton = new JButton(path);
+                FileInputStream fileInputStream = new FileInputStream(path);
+
+                String musicTitle = "no name";
+                String musicArtist = "no artist name";
+                String musicAlbum = "no album name";
+
+                Mp3File mp3file = new Mp3File(path);
+                ID3v1 id3v1Tag = null;
+                if (mp3file.hasId3v1Tag())
+                    id3v1Tag = mp3file.getId3v1Tag();
+                if (id3v1Tag != null) {
+                    musicTitle = id3v1Tag.getTitle();
+                    musicArtist = id3v1Tag.getArtist();
+                    musicAlbum = id3v1Tag.getAlbum();
+                }
+
+                Music music = new Music(jButton, fileInputStream, Jpotify.mantegh, Mantegh.album, path, Mantegh.nextMusicActionListener, Mantegh.previousButtonActionListener);
+                MusicPanel mm = new MusicPanel(new JLabel(musicTitle), new JLabel(musicArtist + " . " + musicAlbum), music.button, music);
+                ImageIcon ii = null;
+                try {
+
+                    Mp3File mp3file1 = new Mp3File(path);
+                    ID3v2 id3v2Tag;
+                    if (mp3file1.hasId3v2Tag()) {
+                        id3v2Tag = mp3file.getId3v2Tag();
+                        byte[] imageData = id3v2Tag.getAlbumImage();
+                        if (imageData != null) {System.out.println();
+                            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+                            File outputfile = new File(".\\bin\\images\\musicImages\\" + musicTitle + ".png");
+                            ImageIO.write(image, "png", outputfile);
+                        }
+                    }
+
+                    ii = new ImageIcon(".\\bin\\images\\musicImages\\" + musicTitle + ".png");
+                    Image image = ii.getImage().getScaledInstance(250, 250,
+                            Image.SCALE_SMOOTH);
+                    ii = new ImageIcon(image);
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                if (ii != null) {
+                    System.out.println();
+                    jButton.setIcon(ii);
+                    music.button = jButton;
+                    music.button.setText("");
+                } else
+                    music.button.setText("no image !!");
+                music.setMusicPanel(mm);
+                music.musicName = path;
+                music.button = new JButton(path);
+                MouseListenerMusiclist.musics.add(0, music);
+                MouseListenerMusiclist.musicPanels.add(0, music.musicPanel);
+                for (int i = 0; i < Mantegh.allAlbumsName.size(); i++) {
+                    if (music.albumName.equals(Mantegh.allAlbumsName.get(i))) {
+                        Mantegh.musicsOfAlbums.get(i).add(music.musicName);
+                    }
+                }
+
+                boolean isThere = true;
+                for (MouseListenerSelf mouseListenerSelf : Mantegh.mouseListenersofalbums) {
+
+                    if (mouseListenerSelf.AlbumName.equals(music.albumName)) {
+                        isThere = false;
+
+                        mouseListenerSelf.currenAlbumMusics.add(music);
+                        mouseListenerSelf.musicPanels.add(music.musicPanel);
+                    }
+                }
+                if (isThere) {
+                    ArrayList<String> musicsOfAlbum = new ArrayList<>();
+                    musicsOfAlbum.add(music.musicName);
+                    AlbumPanel albumPanel = new AlbumPanel(music.albumName, musicsOfAlbum, Mantegh.album.musics);
+                    MouseListenerAlbum.albumPanels.add(albumPanel);
+                }
+
+
+                Jpotify.clearCenterPanel();
+                for (Music music1 : Mantegh.currentAlbumisShowing)
+                    Jpotify.addPanelToCenterPanel(music1.musicPanel);
+
+
+                try (FileWriter fw = new FileWriter(".\\bin\\allMusics\\allMusicList.txt", false);
+                     BufferedWriter bw = new BufferedWriter(fw);
+                     PrintWriter out = new PrintWriter(bw)) {
+
+                    for (Music music1 : Mantegh.album.musics) {
+
+                        out.println(music1.musicName);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                Jpotify.clearCenterPanel();
+                for (int i = 0; i < Mantegh.currentAlbumisShowing.size(); i++) {
+                    Jpotify.addPanelToCenterPanel(Mantegh.currentAlbumisShowing.get(i).musicPanel);
+                }
+
+
+
+
+
+
+
+
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

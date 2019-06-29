@@ -100,6 +100,20 @@ public class DeleteMusicListener implements MouseListener {
                 }
 
 
+                for (int i = 0; i < ServerHandler.sharedlist.size(); i++) {
+                    if(ServerHandler.sharedlist.get(i).equals(music.musicName)) {
+                        ServerHandler.sharedlist.remove(i);
+                        break;
+                    }
+                }
+
+                for (int j = 0; j < ClientSide.ipList.size(); j++) {
+
+                    ClientSide.sendingSharedList();
+
+                }
+
+
                 Jpotify.clearCenterPanel();
                 for (Music music : Mantegh.currentAlbumisShowing)
                     Jpotify.addPanelToCenterPanel(music.musicPanel);

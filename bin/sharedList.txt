@@ -1,5 +1,3 @@
-.\bin\OthersSharedList\Alimi.mp3
-E:\aliabdollahy\sib2.mp3
 E:\aliabdollahy\Helali2.mp3
 E:\aliabdollahy\Helali1.mp3
 .\bin\allMusics\Alimi.mp3
