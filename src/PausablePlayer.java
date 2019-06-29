@@ -1,14 +1,21 @@
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.Mp3File;
 import com.sun.javafx.property.adapter.PropertyDescriptor;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -191,6 +198,50 @@ public class PausablePlayer implements Runnable ,ChangeListener {
 
                     Jpotify.slider1.setValue(min);
                     Jpotify.slider1.addChangeListener(this.pausablePlayer);
+
+                    try {
+                        Mp3File mp3file = new Mp3File(musicName);
+                        ID3v2 id3v2Tag;
+                        ID3v1 id3v1Tag = null;
+                        if (mp3file.hasId3v1Tag())
+                            id3v1Tag = mp3file.getId3v1Tag();
+                        if (mp3file.hasId3v2Tag()) {
+                            id3v2Tag = mp3file.getId3v2Tag();
+
+                            byte[] imageData = id3v2Tag.getAlbumImage();
+                            if (imageData != null) {
+                                BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+                                File outputfile = new File(".\\bin\\images\\musicImages\\new.png");
+                                ImageIO.write(image, "png", outputfile);
+                            }
+                        }
+
+                        ImageIcon ii = new ImageIcon(".\\bin\\images\\musicImages\\new.png");
+                        Image image = ii.getImage().getScaledInstance(182, 182,
+                                Image.SCALE_SMOOTH);
+                        ii = new ImageIcon(image);
+                        if (id3v1Tag != null) {
+                            Jpotify.label3.setText(id3v1Tag.getTitle());
+                            Jpotify.label3.validate();
+                            Jpotify.label3.repaint();
+                            Jpotify.label4.setText(id3v1Tag.getArtist());
+                            Jpotify.label4.validate();
+                            Jpotify.label4.repaint();
+                        }
+                        else {
+                            Jpotify.label3.setText("No name");
+                            Jpotify.label3.validate();
+                            Jpotify.label3.repaint();
+                            Jpotify.label4.setText("No artist name");
+                            Jpotify.label4.validate();
+                            Jpotify.label4.repaint();
+                        }
+                        Jpotify.label2.setIcon(ii);
+                        Jpotify.label12.validate();
+                        Jpotify.label12.repaint();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                      ServerHandler.musicName=musicName;
                      ServerHandler.musicArtist="dddddddd";

@@ -1,9 +1,13 @@
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.Mp3File;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -96,17 +100,55 @@ public class Mantegh {
 
                 album = new Album(line, musicArrayList, Mantegh.currentAlbum);
                 JLabel jLabel = new JLabel(line);
+                ImageIcon ii = null;
+                String musicTitle = "no name";
+                String musicArtist = "no artist name";
+                String musicAlbum = "no album name";
+                try {
+                    Mp3File mp3file = new Mp3File(line);
+                    ID3v2 id3v2Tag;
+                    ID3v1 id3v1Tag = null;
+                    if (mp3file.hasId3v1Tag())
+                        id3v1Tag = mp3file.getId3v1Tag();
+                    if (mp3file.hasId3v2Tag()) {
+                        id3v2Tag = mp3file.getId3v2Tag();
+                        if (id3v1Tag != null) {
+                            musicTitle = id3v1Tag.getTitle();
+                            musicArtist = id3v1Tag.getArtist();
+                            musicAlbum = id3v1Tag.getAlbum();
+                        }
+                        byte[] imageData = id3v2Tag.getAlbumImage();
+                        if (imageData != null) {
+                            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+                            File outputfile = new File(".\\bin\\images\\musicImages\\" + musicTitle + ".png");
+                            ImageIO.write(image, "png", outputfile);
+                        }
+                    }
 
+                    ii = new ImageIcon(".\\bin\\images\\musicImages\\" + musicTitle + ".png");
+                    Image image = ii.getImage().getScaledInstance(250, 250,
+                            Image.SCALE_SMOOTH);
+                    ii = new ImageIcon(image);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 playLists.put(jLabel, album);
                 playlistsArray.add(album);
 
                 File file1 = new File(line);
                 album.name = line;
-                JButton jButton = new JButton(line);
+                JButton jButton;
+                if (ii != null) {
+                    jButton = new JButton(ii);
+                    jButton.setText("");
+                }
+                else
+                    jButton = new JButton("no music image");
                 FileInputStream fileInputStream = new FileInputStream(line);
                 music = new Music(jButton, fileInputStream, this, album, line, nextMusicActionListener, previousButtonActionListener);
-                music.setMusicPanel(new MusicPanel(new JLabel(line),new JLabel("mamali"),music.button,music));
+                music.setMusicPanel(new MusicPanel(new JLabel(musicTitle),new JLabel(musicArtist + " . " + musicAlbum),music.button,music));
                 music.musicName = line;
                 music.button = new JButton(line);
                 album.musics.add(music);
@@ -138,14 +180,14 @@ public class Mantegh {
                     if(music1.albumName.equals(allAlbumsName.get(i)))
                     {
                         test=true;
-                        musicsOfAlbums.get(i).add(0,music1.musicName);
+                        musicsOfAlbums.get(i).add(music1.musicName);
                     }
                 }
                 if(test==false)
                 {
                     allAlbumsName.add(music1.albumName);
                     ArrayList<String> strings=new ArrayList<>();
-                    musicsOfAlbums.add(0,strings);
+                    musicsOfAlbums.add(strings);
                     strings.add(music1.musicName);
                 }
                 test=false;

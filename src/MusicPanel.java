@@ -15,7 +15,6 @@ public class MusicPanel extends JPanel {
 
     public MusicPanel (JLabel musicNameLable1, JLabel musicTagLable1, JButton musicImageButton11, Music music1){
         this.setBackground(new Color(102, 102, 102));
-        System.out.println();
         music = music1;
         musicImageButton = musicImageButton11;
         musicImageButton.addActionListener(new MusicActionListener(music.album,music, music.fileInputStream,music.mantegh,music.musicName,music.mantegh.nextMusicActionListener,music.mantegh.previousButtonActionListener));
@@ -28,19 +27,24 @@ public class MusicPanel extends JPanel {
         deleteMusic.addMouseListener(new DeleteMusicListener(music1));
 
 
-        this.setBackground(new Color(102, 102, 102));
+        this.setBackground(new Color(0,0,0));
 
         //---- musicNameLable ----
-        musicNameLable.setText("Music Name");
+//        musicNameLable.setText("Music Name");
         musicNameLable.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 18));
         musicNameLable.setVerticalAlignment(SwingConstants.TOP);
+        musicNameLable.setForeground(Color.white);
 
         //---- musicTagLable ----
-        musicTagLable.setText("DetailsOfMusic");
+//        musicTagLable.setText("DetailsOfMusic");
         musicTagLable.setVerticalAlignment(SwingConstants.TOP);
+        musicTagLable.setForeground(Color.white);
 
         //---- button1 ----
 //        button1.setText("text");
+        musicImageButton.setBackground(Color.BLACK);
+        musicImageButton.setBorder(null);
+        musicImageButton.setText("");
 
         //---- deleteMusic ----
         deleteMusic.setIcon(new ImageIcon(".\\bin\\images\\appImages\\trashButton.png"));
@@ -56,7 +60,7 @@ public class MusicPanel extends JPanel {
         });
 
         //---- addMusicToList ----
-        addMusicToList.setBackground(new Color(102, 102, 102));
+        addMusicToList.setBackground(new Color(2,2,2));
         addMusicToList.setIcon(new ImageIcon(".\\bin\\images\\appImages\\addButtonNoBackground.png"));
         addMusicToList.setBorder(null);
         addMusicToList.addMouseListener(new MouseAdapter() {
