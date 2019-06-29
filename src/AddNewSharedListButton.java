@@ -3,8 +3,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.ArrayList;
-
-
+import java.util.StringTokenizer;
 
 
 ///همان پلی لیست است اشتباه تایپی بود
@@ -34,8 +33,15 @@ public class AddNewSharedListButton implements MouseListener {
 
         // tokenize//
 
-
-
+//            String name = "";
+//            StringTokenizer st = new StringTokenizer(mouseListenerSelf.nameOfPlayListLabel, "\\");
+//            while (st.hasMoreTokens()) {
+//                name = st.nextToken();
+//            }
+//            st = new StringTokenizer(name, ".");
+//            String finalName = st.nextToken();
+//            mouseListenerSelf.nameOfPlayListLabel = finalName;
+//
 
 
 
@@ -56,7 +62,16 @@ public class AddNewSharedListButton implements MouseListener {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+
+
+
+
+        //
+
+
+
     }
+
 
 
     @Override

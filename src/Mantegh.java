@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class Mantegh {
     Jpotify jpotify;
@@ -266,7 +267,16 @@ public class Mantegh {
 
 
         /////////اینجا تکست لیبل توکنایز شود با اری لیست labelsOfplaylists
-
+        for (int i = 0; i < labelsOfPlayLists.size(); i++) {
+            String name = "";
+            StringTokenizer st = new StringTokenizer(labelsOfPlayLists.get(i).getText(), "\\");
+            while (st.hasMoreTokens()) {
+                name = st.nextToken();
+            }
+            st = new StringTokenizer(name, ".");
+            String finalName = st.nextToken();
+            labelsOfPlayLists.get(i).setText(finalName);
+        }
 
 
 

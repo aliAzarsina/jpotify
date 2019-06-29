@@ -24,6 +24,7 @@ public class AddMusicToListButton implements MouseListener {
 
         for (int i = 0; i <Mantegh.mouselistenersOfPlayLists.size() ; i++) {
             System.out.println(Mantegh.mouselistenersOfPlayLists.get(i).nameOfPlayListLabel);
+
             if(Mantegh.mouselistenersOfPlayLists.get(i).nameOfPlayListLabel.equals(".\\bin\\"+input+".txt"))
             {
                 boolean isthere=false;
