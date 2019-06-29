@@ -8,13 +8,15 @@ public class OthersSharelistsPanel extends JPanel {
     JLabel othersMusicName;
     JButton download;
     Socket socket;
+    String username;
 
-    OthersSharelistsPanel(String musicName, Socket sockett) {
+    OthersSharelistsPanel(String musicName, String musicPath, Socket sockett,String usernamee) {
         othersMusicName = new JLabel();
         download = new JButton();
         socket = sockett;
+        username = usernamee;
 
-        download.addMouseListener(new downloadMusicFromFriendMouseListener(socket));
+        download.addMouseListener(new downloadMusicFromFriendMouseListener(username, musicPath));
 
         this.setPreferredSize(new Dimension(340, 30));
         this.setBackground(Color.black);

@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class ClientHandler implements Runnable {
 
@@ -41,41 +42,98 @@ public class ClientHandler implements Runnable {
 
             System.out.println("serverSide@ New request : " + checkRequest);
 
-            if (checkRequest.equals("receiveMusic")) {
+            if (checkRequest.equals("receiveFile")) {
                 String fileName = is.readUTF();
-                System.out.println(fileName + "****************** request from the server");
-                File myFile = new File(FILE_TO_SEND);
-                byte[] mybytearray = new byte[(int) myFile.length()];
-                fis = new FileInputStream(myFile);
-                bis = new BufferedInputStream(fis);
-                bis.read(mybytearray, 0, mybytearray.length);
-                os = sock.getOutputStream();
-                System.out.println("Sending " + FILE_TO_SEND + "(" + mybytearray.length + " bytes)");
-                os.write(mybytearray, 0, mybytearray.length);
-                os.flush();
-                Thread.sleep(10000);
-                System.out.println("Done.");
+                String userName = is.readUTF();
+                if (Mantegh.username.equals(userName)) {
+
+                    System.out.println("llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
+
+
+                    try {
+
+                        File myFile = new File(fileName);
+                        byte[] mybytearray = new byte[(int) myFile.length()];
+                        fis = new FileInputStream(myFile);
+                        bis = new BufferedInputStream(fis);
+                        bis.read(mybytearray, 0, mybytearray.length);
+                        os = sock.getOutputStream();
+                        System.out.println("Sending " + FILE_TO_SEND + "(" + mybytearray.length + " bytes)");
+                        os.write(mybytearray, 0, mybytearray.length);
+                        os.flush();
+                        Thread.sleep(10000);
+                        System.out.println("Done.");
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
             } else if (checkRequest.equals("shareThePlayList")) {
+                String username = is.readUTF();
+
+
                 ObjectInputStream objectInputStream = new ObjectInputStream(is);
-                ArrayList<String> shareList = (ArrayList<String>) objectInputStream.readObject();
-                panel.musicAddresses = shareList;
-                OnlinePeoplePanel.setMusicNames(sharedlist);
-                OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("ALI AA", "lastMUSIC", "lastARTIST", "2m", sock);
-                Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
-                Jpotify.updateOnlinePeoplePanel();
-                panel = onlinePeoplePanel;
-                OnlinePeoplePanel.setShareInit();
+                Object object = objectInputStream.readObject();
+                ArrayList<String> shareList = (ArrayList<String>) object;
+
+                System.out.println(object + "qqqqqqqqqqqqqqqqqqqqqqqqqq");
+
+                //System.out.println(panel.musicAddresses);
+                //#########################################
+                OnlinePeoplePanel onlinePeoplePanel2 = null;
+                boolean isthere = false;
+                for (int i = 0; i < Jpotify.onlinePeoplePanels.size(); i++) {
+                    if (Jpotify.onlinePeoplePanels.get(i).userName2.equals(username)) {
+                        isthere = true;
+                        onlinePeoplePanel2 = Jpotify.onlinePeoplePanels.get(i);
+                        break;
+                    }
+                }
+                if (isthere) {
+                    Jpotify.removeOnlinePeoplePanel(onlinePeoplePanel2);
+                    onlinePeoplePanel2 = new OnlinePeoplePanel(username, musicName, musicArtist, lastSeen, sock);
+                    onlinePeoplePanel2.musicAddresses = (ArrayList<String>) object;
+                    onlinePeoplePanel2.setMusicNames(onlinePeoplePanel2.musicAddresses);
+                    Jpotify.addOnlinePeoplePanel(onlinePeoplePanel2);
+                    Jpotify.updateOnlinePeoplePanel();
+                    onlinePeoplePanel2.setShareInit();
+                } else {
+                    OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel(username, musicName, musicArtist, lastSeen, sock);
+                    onlinePeoplePanel.musicAddresses = (ArrayList<String>) object;
+                    onlinePeoplePanel.setMusicNames(onlinePeoplePanel.musicAddresses);
+                    Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
+                    Jpotify.updateOnlinePeoplePanel();
+                    onlinePeoplePanel.setShareInit();
+
+                }
+                //###############################################
 
             } else if (checkRequest.equals("sendCurrentMusic")) {
                 musicName = is.readUTF();
                 musicArtist = is.readUTF();
                 lastSeen = is.readUTF();
-
-                Jpotify.removeOnlinePeoplePanel(panel);
-                OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel("Ali A",musicName,musicArtist,lastSeen,sock);
-                Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
-                System.out.println("dddddddddddddddddddddddddddddddddd"+musicName);
-                Jpotify.updateOnlinePeoplePanel();
+                String userName = is.readUTF();
+                OnlinePeoplePanel onlinePeoplePanel2 = null;
+                boolean isthere = false;
+                for (int i = 0; i < Jpotify.onlinePeoplePanels.size(); i++) {
+                    if (Jpotify.onlinePeoplePanels.get(i).userName2.equals(userName)) {
+                        isthere = true;
+                        onlinePeoplePanel2 = Jpotify.onlinePeoplePanels.get(i);
+                        break;
+                    }
+                }
+                if (isthere) {
+                    Jpotify.removeOnlinePeoplePanel(onlinePeoplePanel2);
+                    onlinePeoplePanel2 = new OnlinePeoplePanel(userName, musicName, musicArtist, lastSeen, sock);
+                    Jpotify.addOnlinePeoplePanel(onlinePeoplePanel2);
+                    System.out.println("dddddddddddddddddddddddddddddddddd" + musicName);
+                    Jpotify.updateOnlinePeoplePanel();
+                } else {
+                    OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel(userName, musicName, musicArtist, lastSeen, sock);
+                    Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
+                    Jpotify.updateOnlinePeoplePanel();
+                }
             } else
                 System.out.println("serverSde : Unknown order received ");
 

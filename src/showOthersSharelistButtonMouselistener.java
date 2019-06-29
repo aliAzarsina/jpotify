@@ -6,18 +6,23 @@ import java.util.ArrayList;
 
 public class showOthersSharelistButtonMouselistener implements MouseListener {
     ArrayList<String> musicName;
+    ArrayList<String> musicPath;
     Socket socket;
-    showOthersSharelistButtonMouselistener (ArrayList<String> musicPath, ArrayList<String> musicName, Socket socket) {
+    String username;
+    showOthersSharelistButtonMouselistener (ArrayList<String> musicPath, ArrayList<String> musicName, Socket socket,String usernamee) {
         this.socket = socket;
         this.musicName = musicName;
-
+        this.musicPath = musicPath;
+        System.out.println(musicName);
+        System.out.println(musicPath);
+        username = usernamee;
     }
     @Override
     public void mouseClicked(MouseEvent e) {
         SharelistFrame sharelistFrame = new SharelistFrame();
         sharelistFrame.setVisible(true);
         for (int i = 0; i < musicName.size(); i++) {
-            OthersSharelistsPanel othersSharelistsPanel = new OthersSharelistsPanel(musicName.get(i),socket);
+            OthersSharelistsPanel othersSharelistsPanel = new OthersSharelistsPanel(musicName.get(i) ,musicPath.get(i),socket,username);
             sharelistFrame.addPanel(othersSharelistsPanel);
             sharelistFrame.updatePanels();
         }

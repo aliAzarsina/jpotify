@@ -4,6 +4,7 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 
 public class ServerHandler implements Runnable {
@@ -11,7 +12,7 @@ public class ServerHandler implements Runnable {
     static String currentMusicAddress = "";
 
     String work;
-    static String musicNameYouWant;
+     String musicNameYouWant;
     static String currenMusic;
     private Socket socket;
 
@@ -23,10 +24,16 @@ public class ServerHandler implements Runnable {
     //    static HashMap<String, String> request = new HashMap<>();
     static ArrayList<ArrayList<String>> request = new ArrayList<>();
 
+    String userName;
+
+
+
     public ServerHandler(Socket socket, String Order) throws IOException {
         this.socket = socket;
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^"+socket);
         dos = new DataOutputStream(socket.getOutputStream());
-        work = Order;
+        work=Order;
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$");
     }
 
     public void setWork(String work) {
@@ -45,8 +52,12 @@ public class ServerHandler implements Runnable {
     int bytesRead;
     int current = 0;
 
-    public static void setMusicNameYouWant(String musicNameYouWant) {
-        ServerHandler.musicNameYouWant = musicNameYouWant;
+    public  void setMusicNameYouWant(String musicNameYouWant) {
+        this.musicNameYouWant = musicNameYouWant;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void run() {
@@ -79,6 +90,7 @@ public class ServerHandler implements Runnable {
             dos.writeUTF(musicName);
             dos.writeUTF(musicArtist);
             dos.writeUTF(time);
+            dos.writeUTF(Mantegh.username);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,6 +101,7 @@ public class ServerHandler implements Runnable {
     public void sendingSharedlist(ArrayList<String> sharedlist) {
         try {
             dos.writeUTF("shareThePlayList");
+            dos.writeUTF(Mantegh.username);
             ObjectOutputStream ob = new ObjectOutputStream(dos);
             ob.writeObject(sharedlist);
         } catch (Exception e) {
@@ -99,9 +112,21 @@ public class ServerHandler implements Runnable {
     public void receivingMusic(String string) {
 
         try {
-            dos.writeUTF("receivingFile");
+            dos.writeUTF("receiveFile");
             dos.writeUTF(string);
-            String path = ".\\bin\\OthersSharedList\\" + string + ".mp3";
+            dos.writeUTF(userName);
+            Thread.sleep(5000);
+
+                String name = "";
+                StringTokenizer st = new StringTokenizer(string, "\\");
+                while (st.hasMoreTokens()) {
+                    name = st.nextToken();
+                }
+                st = new StringTokenizer(name, ".");
+                String finalName = st.nextToken();
+
+
+            String path = ".\\bin\\OthersSharedList\\" + finalName + ".mp3";
             // receive file
             byte[] mybytearray = new byte[FILE_SIZE];
             InputStream is = socket.getInputStream();

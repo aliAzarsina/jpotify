@@ -5,19 +5,22 @@ import java.util.ArrayList;
 
 public class downloadMusicFromFriendMouseListener implements MouseListener {
     Socket socket;
-    public downloadMusicFromFriendMouseListener(Socket socket) {
-        this.socket = socket;
+    String userName;
+    String muscName;
+    public downloadMusicFromFriendMouseListener( String userName,String musicYouWantName) {
+        this.userName = userName;
+        muscName = musicYouWantName;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
         try {
-            ArrayList<String> temp = new ArrayList<>();
-            temp.add(0,"receiveMusic"); // order
-            temp.add(1,"localhost"); // host
-            temp.add(2,"123"); // name
-//            ServerHandler.request.add(0,temp);
+            for (int i = 0; i < ClientSide.ipList.size() ; i++) {
+                ClientSide.recievingMusic(ClientSide.ipList.get(i),muscName,userName);
+                System.out.println("#################################");
+            }
+
         } catch (Exception e1) {
             e1.printStackTrace();
         }

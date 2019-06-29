@@ -15,14 +15,14 @@ public class DeletePlayList implements MouseListener {
         if(!name.equals("sharedList")&&!name.equals("favoriteMusics")) {
             for (int i = 0; i < Mantegh.mouselistenersOfPlayLists.size(); i++) {
 
-                if (Mantegh.mouselistenersOfPlayLists.get(i).nameOfPlayListLabel.equals(name)) {
+                if (Mantegh.mouselistenersOfPlayLists.get(i).nameOfPlayListLabel.equals(".\\bin\\"+name+".txt")) {
                     Mantegh.playlist2.remove(Mantegh.labelsOfPlayLists.get(i));
                     Mantegh.labelsOfPlayLists.remove(i);
                     Mantegh.mouselistenersOfPlayLists.remove(i);
                     Jpotify.panel7.removeAll();
                     Jpotify.i = 0;
                     for (int j = 0; j < Mantegh.labelsOfPlayLists.size(); j++) {
-                        Jpotify.addPlayList(Mantegh.labelsOfPlayLists.get(i));
+                        Jpotify.addPlayList(Mantegh.labelsOfPlayLists.get(j));
                     }
 
                     try (FileWriter fw = new FileWriter(".\\bin\\playLists\\playListsAddresses.txt", false);
@@ -30,7 +30,7 @@ public class DeletePlayList implements MouseListener {
                          PrintWriter out = new PrintWriter(bw)) {
 
                         for (MouseListenerSelf mouseListenerSelf : Mantegh.mouselistenersOfPlayLists) {
-                            out.println(".\\bin\\" + mouseListenerSelf.nameOfPlayListLabel + ".txt");
+                            out.println( mouseListenerSelf.nameOfPlayListLabel );
                         }
                     } catch (IOException e1) {
                         e1.printStackTrace();

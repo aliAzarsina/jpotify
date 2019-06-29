@@ -196,6 +196,8 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                      ServerHandler.musicArtist="dddddddd";
                      ServerHandler.time="ssss";
                      ClientSide.sendingNewMusic();
+
+                     Mantegh.musictime=max*24/1000;
                     advanceplayer.play(min, max);
                 }
 

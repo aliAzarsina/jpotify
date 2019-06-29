@@ -42,6 +42,10 @@ public class Mantegh {
     static ArrayList<MouseListenerSelf> mouseListenersofalbums=new ArrayList<>();
 
 
+    static String username="aliazarsina";
+    static int musictime=0;
+
+
 
 
 
@@ -58,7 +62,8 @@ public class Mantegh {
                     } catch (Exception e) {
                     }
                     ChangeListener changeListener2 = null;
-                    time++;
+                    if(time<musictime)
+                    {time++;}
 
                     for (ChangeListener changeListener : Jpotify.slider1.getChangeListeners()) {
                         Jpotify.slider1.removeChangeListener(changeListener);
@@ -69,6 +74,9 @@ public class Mantegh {
 
                     Jpotify.slider1.addChangeListener(Mantegh.currentPausableplayer);
 
+
+
+                    Jpotify.label10.setText(time/60+":"+time%60+"/"+musictime/60+":"+musictime%60);
                     System.out.println(time);
 
                 }
@@ -151,6 +159,11 @@ public class Mantegh {
 
 
         Jpotify.label18.addMouseListener(new AddNewSharedListButton());
+
+        Jpotify.button14.addMouseListener(new ChangeNameOfPlayLIst());
+        Jpotify.button16.addMouseListener(new DeletePlayList());
+        Jpotify.button6.addMouseListener(new ChangethePlaceOfMusicsInPlayList());
+
 
 
 

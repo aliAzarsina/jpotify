@@ -86,13 +86,20 @@ public class ClientSide implements Runnable {
     }
 
 
-    static public void recievingMusic(Socket socket, String musicYouWant) {
+    static public void recievingMusic(String ip, String musicYouWant,String username) {
         try {
+            System.out.println("((((((((((((((((((((((((((((((((("+ip);
+            Thread.sleep(3000);
+            Socket socket = new Socket(ip, 13267);
+
             ServerHandler serverHandler = new ServerHandler(socket, "receiveMusic");
-            ServerHandler.musicNameYouWant = musicYouWant;
+            serverHandler.setMusicNameYouWant(musicYouWant);
+            serverHandler.setUserName(username);
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
             Thread t = new Thread(serverHandler);
             t.start();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -14,8 +14,11 @@ public class ChangeNameOfPlayLIst implements MouseListener {
         if(!input.equals("sharedList")&&!input.equals("favoriteMusics")) {
             String name;
             name = JOptionPane.showInputDialog("new name?");
+
+            input=".\\bin\\"+input+".txt";
             for (int i = 0; i < Mantegh.labelsOfPlayLists.size(); i++) {
-                if (input.equals(Mantegh.labelsOfPlayLists.get(i))) {
+                if (input.equals(Mantegh.mouselistenersOfPlayLists.get(i).AlbumName)) {
+
                     Mantegh.labelsOfPlayLists.get(i).setText(name);
                     try (FileWriter fw = new FileWriter(".\\bin\\" + name + ".txt", false);
                          BufferedWriter bw = new BufferedWriter(fw);
