@@ -6,6 +6,9 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
@@ -31,6 +34,7 @@ public class Jpotify extends JFrame {
             jpotify.setVisible(true);
             Thread serverThread = new Thread(new ServerSide());
             serverThread.start();
+            serverThread.join(1000);
             jpotify.getContentPane().setBackground(Color.black);
             mantegh=new Mantegh(jpotify);
 
@@ -1077,6 +1081,8 @@ public class Jpotify extends JFrame {
 
                 //---- slider2 ----
                 slider2.setBackground(Color.black);
+                slider2.setMaximum(229);
+                slider2.setMinimum(0);
 
                 GroupLayout panel16Layout = new GroupLayout(panel16);
                 panel16.setLayout(panel16Layout);
@@ -1313,6 +1319,24 @@ public class Jpotify extends JFrame {
         X = 0;
         Y = 0;
     }
+
+//    public static void setVolume(int volume) {
+//        Robot robot;             // Set speaker volume to 80
+//        try {
+//            robot = new Robot();
+//            robot.mouseMove(1698, 1150);
+//            robot.mousePress(InputEvent.BUTTON1_MASK);
+//            robot.mouseRelease(InputEvent.BUTTON1_MASK);
+//            robot.delay(10);
+//            robot.mouseMove(1583 + volume, 1010);
+//            robot.mousePress(InputEvent.BUTTON1_MASK);
+//            robot.mouseRelease(InputEvent.BUTTON1_MASK);
+//            robot.delay(10);
+//            robot.mouseMove(500,500);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
 
 
@@ -1342,4 +1366,8 @@ class Actionlisten2 implements ActionListener
         thread.resume();
 
     }
+
+
+
+
 }

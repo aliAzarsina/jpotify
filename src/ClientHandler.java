@@ -38,6 +38,7 @@ public class ClientHandler implements Runnable {
         try {
             is = new DataInputStream(sock.getInputStream());
             String checkRequest;
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::");
             checkRequest = is.readUTF();
 
             System.out.println("serverSide@ New request : " + checkRequest);
@@ -77,7 +78,7 @@ public class ClientHandler implements Runnable {
                 Object object = objectInputStream.readObject();
                 ArrayList<String> shareList = (ArrayList<String>) object;
 
-                System.out.println(object + "qqqqqqqqqqqqqqqqqqqqqqqqqq");
+//                System.out.println(object + "qqqqqqqqqqqqqqqqqqqqqqqqqq");
 
                 //System.out.println(panel.musicAddresses);
                 //#########################################
@@ -92,15 +93,17 @@ public class ClientHandler implements Runnable {
                 }
                 if (isthere) {
                     Jpotify.removeOnlinePeoplePanel(onlinePeoplePanel2);
-                    onlinePeoplePanel2 = new OnlinePeoplePanel(username, musicName, musicArtist, lastSeen, sock);
+                    onlinePeoplePanel2 = new OnlinePeoplePanel(username, musicName, musicArtist, 0, sock);
                     onlinePeoplePanel2.musicAddresses = (ArrayList<String>) object;
+                    System.out.println(object + "===============================");
                     onlinePeoplePanel2.setMusicNames(onlinePeoplePanel2.musicAddresses);
                     Jpotify.addOnlinePeoplePanel(onlinePeoplePanel2);
                     Jpotify.updateOnlinePeoplePanel();
                     onlinePeoplePanel2.setShareInit();
                 } else {
-                    OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel(username, musicName, musicArtist, lastSeen, sock);
+                    OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel(username, musicName, musicArtist, 0, sock);
                     onlinePeoplePanel.musicAddresses = (ArrayList<String>) object;
+                    System.out.println(object + "===============================");
                     onlinePeoplePanel.setMusicNames(onlinePeoplePanel.musicAddresses);
                     Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
                     Jpotify.updateOnlinePeoplePanel();
@@ -117,6 +120,7 @@ public class ClientHandler implements Runnable {
                 OnlinePeoplePanel onlinePeoplePanel2 = null;
                 boolean isthere = false;
                 for (int i = 0; i < Jpotify.onlinePeoplePanels.size(); i++) {
+                    System.out.println();
                     if (Jpotify.onlinePeoplePanels.get(i).userName2.equals(userName)) {
                         isthere = true;
                         onlinePeoplePanel2 = Jpotify.onlinePeoplePanels.get(i);
@@ -125,12 +129,12 @@ public class ClientHandler implements Runnable {
                 }
                 if (isthere) {
                     Jpotify.removeOnlinePeoplePanel(onlinePeoplePanel2);
-                    onlinePeoplePanel2 = new OnlinePeoplePanel(userName, musicName, musicArtist, lastSeen, sock);
+                    onlinePeoplePanel2 = new OnlinePeoplePanel(userName, musicName, musicArtist, 2, sock);
                     Jpotify.addOnlinePeoplePanel(onlinePeoplePanel2);
                     System.out.println("dddddddddddddddddddddddddddddddddd" + musicName);
                     Jpotify.updateOnlinePeoplePanel();
                 } else {
-                    OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel(userName, musicName, musicArtist, lastSeen, sock);
+                    OnlinePeoplePanel onlinePeoplePanel = new OnlinePeoplePanel(userName, musicName, musicArtist, 2, sock);
                     Jpotify.addOnlinePeoplePanel(onlinePeoplePanel);
                     Jpotify.updateOnlinePeoplePanel();
                 }

@@ -52,8 +52,7 @@ public class AddMusicToListButton implements MouseListener {
                 {
                     System.out.println("ddddddddddddddddddddddddddddddddddddddd");
                     //for (int j = 0; j < Mantegh.mouselistenersOfPlayLists.get(i).currenAlbumMusics.size(); j++) {
-
-                        ServerHandler.sharedlist.add(music.musicName);
+                             ServerHandler.sharedlist.add(music.musicName);
                     //}
                     for (int j = 0; j < ClientSide.ipList.size(); j++) {
                         ClientSide.sendingSharedList();

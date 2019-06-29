@@ -207,6 +207,7 @@ public class Mantegh {
         Jpotify.button16.addMouseListener(new DeletePlayList());
         Jpotify.button6.addMouseListener(new ChangethePlaceOfMusicsInPlayList());
 
+        Jpotify.slider2.addChangeListener(new soundSliderListener());
 
 
 

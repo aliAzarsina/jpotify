@@ -21,7 +21,7 @@ public class AddNewSharedListButton implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         name = JOptionPane.showInputDialog("the playList you want to add it?");
         ArrayList<String> strings=new ArrayList<>();
-        MouseListenerSelf mouseListenerSelf=new MouseListenerSelf(true,"notAlbum", new ArrayList<Music>(),strings );
+        MouseListenerSelf mouseListenerSelf=new MouseListenerSelf(true,".\\bin\\"+name+".txt", new ArrayList<Music>(),strings );
 
         JLabel jLabel=new JLabel(".\\bin\\"+name+".txt");
         Mantegh.mouselistenersOfPlayLists.add(mouseListenerSelf);

@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.StringTokenizer;
 
 public class PausablePlayer implements Runnable ,ChangeListener {
 
@@ -198,7 +199,7 @@ public class PausablePlayer implements Runnable ,ChangeListener {
 
                     Jpotify.slider1.setValue(min);
                     Jpotify.slider1.addChangeListener(this.pausablePlayer);
-
+                    String artist = "no artist";
                     try {
                         Mp3File mp3file = new Mp3File(musicName);
                         ID3v2 id3v2Tag;
@@ -207,7 +208,7 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                             id3v1Tag = mp3file.getId3v1Tag();
                         if (mp3file.hasId3v2Tag()) {
                             id3v2Tag = mp3file.getId3v2Tag();
-
+                            artist = id3v1Tag.getArtist();
                             byte[] imageData = id3v2Tag.getAlbumImage();
                             if (imageData != null) {
                                 BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
@@ -242,13 +243,23 @@ public class PausablePlayer implements Runnable ,ChangeListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                     ServerHandler.musicName=musicName;
-                     ServerHandler.musicArtist="dddddddd";
+                    String namename = "no music name";
+                    String name = "";
+                    StringTokenizer st = new StringTokenizer(musicName, "\\");
+                    while (st.hasMoreTokens()) {
+                        name = st.nextToken();
+                    }
+                    st = new StringTokenizer(name, ".");
+                    String finalName = st.nextToken();
+                    namename = finalName;
+                     ServerHandler.musicName=namename;
+                     ServerHandler.musicArtist=artist;
                      ServerHandler.time="ssss";
                      ClientSide.sendingNewMusic();
 
                      Mantegh.musictime=max*24/1000;
+
+
                     advanceplayer.play(min, max);
                 }
 

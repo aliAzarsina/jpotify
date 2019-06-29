@@ -38,6 +38,16 @@ public class DeleteMusicListener implements MouseListener {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++"+Mantegh.thecurrentPlaylistisshowingmouselistener.AlbumName);
+
+            if (Mantegh.thecurrentPlaylistisshowingmouselistener.AlbumName.equals(".\\bin\\sharedList.txt")) {
+                ServerHandler.sharedlist.remove(music.musicName);
+                for (int j = 0; j < ClientSide.ipList.size(); j++) {
+                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    System.out.println(ServerHandler.sharedlist);
+                    ClientSide.sendingSharedList();
+                }
+            }
 
 
             Jpotify.clearCenterPanel();

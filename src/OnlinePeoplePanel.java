@@ -19,16 +19,40 @@ public class OnlinePeoplePanel extends JPanel{
      ArrayList<String> musicAddresses = new ArrayList<>();
     String userName2;////////
 
-    public OnlinePeoplePanel(String userNamee, String lastMusicc, String lastMusicArtistt, String lastSeenn, Socket sockett) {
+    int time = 0;
+    int time2 = 0;
+
+    public OnlinePeoplePanel(String userNamee, String lastMusicc, String lastMusicArtistt, int lastSeenn, Socket sockett) {
         socket = sockett;
         userName = new JLabel(userNamee);
         lastMusic = new JLabel(lastMusicc);
         userName2=userNamee;
         lastMusicArtist = new JLabel(lastMusicArtistt);
-        lastSeen = new JLabel(lastSeenn);
+        lastSeen = new JLabel(lastSeenn + "");
+        time = lastSeenn;
         downloadMusic = new JButton();
         downloadMusic.addMouseListener(new downloadMusicFromFriendMouseListener(userName2,lastMusicc));
         getSharelist = new JButton();
+
+
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (time != 0) {
+                    try {
+                        while (true) {
+                            Thread.sleep(10000);
+                            time2++;
+                            lastSeen.setText(time2 + "m");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.start();
         /////////////////////////////////
 //        ArrayList<String> temp = new ArrayList<>();
 //                for (int i = 0; i < musicAddresses.size(); i++) {
@@ -62,7 +86,8 @@ public class OnlinePeoplePanel extends JPanel{
         userName.setForeground(Color.white);
 
         //---- lastSeen ----
-        lastSeen.setText(lastSeenn);
+        if (time == 0)
+            lastSeen.setText("online");
         lastSeen.setForeground(Color.white);
 
         //---- lastMusic ----

@@ -13,15 +13,17 @@ public class showOthersSharelistButtonMouselistener implements MouseListener {
         this.socket = socket;
         this.musicName = musicName;
         this.musicPath = musicPath;
-        System.out.println(musicName);
-        System.out.println(musicPath);
+//        System.out.println(musicName);
+//        System.out.println(musicPath);
         username = usernamee;
     }
     @Override
     public void mouseClicked(MouseEvent e) {
         SharelistFrame sharelistFrame = new SharelistFrame();
         sharelistFrame.setVisible(true);
+        sharelistFrame.othersSharelistsPanels = new ArrayList<>();
         for (int i = 0; i < musicName.size(); i++) {
+            System.out.println(musicName.size());
             OthersSharelistsPanel othersSharelistsPanel = new OthersSharelistsPanel(musicName.get(i) ,musicPath.get(i),socket,username);
             sharelistFrame.addPanel(othersSharelistsPanel);
             sharelistFrame.updatePanels();

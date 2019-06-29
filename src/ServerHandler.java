@@ -9,10 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class ServerHandler implements Runnable {
@@ -97,7 +95,7 @@ public class ServerHandler implements Runnable {
             dos.writeUTF("sendCurrentMusic");
             dos.writeUTF(musicName);
             dos.writeUTF(musicArtist);
-            dos.writeUTF(time);
+            dos.writeUTF(new Date().getTime() + "");
             dos.writeUTF(Mantegh.username);
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,7 +149,7 @@ public class ServerHandler implements Runnable {
             bos.write(mybytearray, 0, current);
             bos.flush();
             System.out.println("File " + " downloaded (" + current + " bytes read)");
-            Thread.sleep(5000);
+            Thread.sleep(20000);
 
 
 
